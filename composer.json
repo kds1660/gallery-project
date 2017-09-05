@@ -49,6 +49,7 @@
         ],
         "post-install-cmd": [
             "@symfony-scripts",
+            "npm install",
             "php bin/console assets:install"
         ],
         "post-update-cmd": [
