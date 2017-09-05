@@ -1,0 +1,51 @@
+/* app css stylesheet */
+
+.menu {
+  list-style: none;
+  border-bottom: 0.1em solid black;
+  margin-bottom: 2em;
+  padding: 0 0 0.5em;
+}
+
+.menu > li {
+  display: inline;
+}
+
+.thumb img {
+  filter: none; /* IE6-9 */
+  -webkit-filter: grayscale(0);
+  border-radius:5px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding:5px;
+  max-width: 150px;
+  height: 150px;
+}
+.thumb img:hover {
+  -webkit-filter: grayscale(1);
+}
+.thumb {
+  padding:5px;
+}
+.thumb .btn {
+  position: relative;
+  z-index: 10;
+  top: -40px;
+}
+
+.col-md-2, .col-sm-4, .col-xs-6 {
+  max-height: 180px;
+}
+
+.container {
+  background-color: #e9ecef;
+}
+
+.alert {
+  position: fixed;
+  top: 0;
+  width: 30%;
+  height:50px;
+  z-index: 1000;
+  opacity: 0.9;
+}

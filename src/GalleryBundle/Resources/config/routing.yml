@@ -1,0 +1,42 @@
+gallery_show:
+    path:     /
+    defaults: { _controller: GalleryBundle:Default:index }
+
+gallery_template:
+     path:     /templates/{tmpl}
+     defaults: { _controller: GalleryBundle:Templates:index }
+
+get_dir_elements:
+     path:     /directory/{id}
+     defaults: { _controller: GalleryBundle:Directory:getDirElements }
+     methods:  [GET]
+
+del_dir:
+     path:     /directory/{id}
+     defaults: { _controller: GalleryBundle:Directory:delete }
+     methods:  [DELETE]
+
+edit_dir:
+     path:     /directory/{id}
+     defaults: { _controller: GalleryBundle:Directory:edit }
+     methods:  [PUT]
+
+add_dir:
+     path:     /directory
+     defaults: { _controller: GalleryBundle:Directory:add }
+     methods:  [POST]
+
+del_image:
+     path:     /image/{id}
+     defaults: { _controller: GalleryBundle:Image:delete }
+     methods:  [DELETE]
+
+edit_image:
+     path:     /image/{id}
+     defaults: { _controller: GalleryBundle:Image:edit }
+     methods:  [PUT]
+
+add_image:
+     path:     /directory
+     defaults: { _controller: GalleryBundle:Directory:add }
+     methods:  [POST]

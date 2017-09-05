@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="utf-8">
+    <title>Gallery</title>
+    <script src="js/vendors-js.min.js"></script>
+    <script src="js/angular-app.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/app.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/vendors-css.min.css">
+</head>
+<body>
+
+<div class="alert alert-danger " tabindex="-1" role="alert" ng-show="alertFalse">{{ '{{ ' }}alert.text{{ '}} ' }}
+</div>
+<div class="alert alert-success " tabindex="-1" role="alert" ng-show="alertTrue">{{ '{{ ' }}alert.text{{ '}} ' }}
+</div>
+
+<ul>
+    <div class="heading">
+        <h1>GALLERY</h1>
+    </div>
+
+    <a class="brand" ui-sref="gallery">ui-router</a>
+</ul>
+<div ui-view></div>
+
+
+</body>
+</html>

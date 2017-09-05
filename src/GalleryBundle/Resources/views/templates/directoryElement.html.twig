@@ -1,0 +1,6 @@
+<div class="col-md-2 col-sm-4 col-xs-6 thumb">
+    {{ '{{ ' }}directories.name{{ '}} ' }} {#Ugly decision for angular variables#}
+    <img class="img-responsive" src="{{ asset('bundles/gallery/icons/folder.jpg') }}" ng-click="openDir($index)"/>
+    <button type="button" class="btn btn-warning imageButtons" ng-click="editDir($index)">Edit</button>
+    <button type="button" class="btn btn-danger imageButtons" ng-click="deleteDir($index)">Delete</button>
+</div>
