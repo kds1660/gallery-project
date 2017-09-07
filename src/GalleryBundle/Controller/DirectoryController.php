@@ -33,7 +33,7 @@ class DirectoryController extends Controller
         $result = $this->container->get('gallery.dir_service')->deleteDir($id);
 
         if ($result) {
-            throw $this->createNotFoundException($result);
+            return new Response($result, 500);
         }
         return new Response('Directory deleted', 200);
     }
@@ -49,7 +49,7 @@ class DirectoryController extends Controller
         $result = $this->container->get('gallery.dir_service')->renameDir($id, $newName);
 
         if ($result) {
-            throw $this->createNotFoundException($result);
+            return new Response($result, 500);
         }
         return new Response('Directory renamed', 200);
     }
@@ -66,7 +66,7 @@ class DirectoryController extends Controller
         $pid = $req->pid;
         $result = $this->container->get('gallery.dir_service')->addDir($name, $pid);
         if ($result) {
-            throw $this->createNotFoundException($result);
+            return new Response($result, 500);
         }
         return new Response('Directory added', 200);
     }

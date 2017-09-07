@@ -18,7 +18,7 @@ class ImageController extends Controller
         $result = $this->container->get('gallery.image_service')->deleteImage($id);
 
         if ($result) {
-            throw $this->createNotFoundException($result);
+            return new Response($result, 500);
         }
         return new Response('Image deleted', 200);
     }
@@ -34,7 +34,7 @@ class ImageController extends Controller
         $result = $this->container->get('gallery.image_service')->renameImage($id, $newName);
 
         if ($result) {
-            throw $this->createNotFoundException($result);
+            return new Response($result, 500);
         }
         return new Response('Image renamed', 200);
     }
@@ -52,7 +52,7 @@ class ImageController extends Controller
         $result = $this->container->get('gallery.image_service')->addImage($imgName, $imgPid, $file);
 
         if ($result) {
-            throw $this->createNotFoundException($result);
+            return new Response($result, 500);
         }
         return new Response('Image created', 200);
     }
