@@ -9,7 +9,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DirectoryController extends Controller
 {
-    public function getDirElementsAction(Request $request, $id): JsonResponse
+    /**
+     * @param $id
+     * @return JsonResponse
+     */
+    public function getDirElementsAction($id): JsonResponse
     {
         $files = $this->container->get('gallery.image_service');
         $dirs = $this->container->get('gallery.dir_service');
@@ -20,7 +24,11 @@ class DirectoryController extends Controller
         ]);
     }
 
-    public function deleteAction(Request $request, $id): Response
+    /**
+     * @param $id
+     * @return Response
+     */
+    public function deleteAction($id): Response
     {
         $result = $this->container->get('gallery.dir_service')->deleteDir($id);
 
@@ -30,6 +38,11 @@ class DirectoryController extends Controller
         return new Response('Directory deleted', 200);
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     * @return Response
+     */
     public function editAction(Request $request, $id): Response
     {
         $newName = $request->getContent();
@@ -41,6 +54,10 @@ class DirectoryController extends Controller
         return new Response('Directory renamed', 200);
     }
 
+    /**
+     * @param Request $request
+     * @return Response
+     */
     public function addAction(Request $request): Response
     {
         $req = $request->getContent();
@@ -48,7 +65,6 @@ class DirectoryController extends Controller
         $name = $req->name;
         $pid = $req->pid;
         $result = $this->container->get('gallery.dir_service')->addDir($name, $pid);
-
         if ($result) {
             throw $this->createNotFoundException($result);
         }

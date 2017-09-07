@@ -1,13 +1,13 @@
 angular.module('galleryServices', [])
     .constant('api_url', 'http://localhost:8000/')
 
-    .factory('apiGet', ['$http','api_url',
+    .factory('apiReq', ['$http', 'api_url',
         function ($http, api_url) {
-            return function (url,method,data) {
+            return function (url, method, data) {
                 var conf = {
                     method: method,
                     url: api_url + url,
-                    data:data
+                    data: data
                 };
                 return $http(conf)
                     .then(function (response) {

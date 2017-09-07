@@ -1,7 +1,7 @@
 services:
  gallery.image_service:
         class: GalleryBundle\Services\ImageService
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: ["@doctrine.orm.entity_manager",'%gallery_directory%']
  gallery.dir_service:
         class: GalleryBundle\Services\DirService
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: ["@doctrine.orm.entity_manager",'%gallery_directory%']

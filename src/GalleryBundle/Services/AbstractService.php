@@ -8,8 +8,9 @@ class AbstractService
 {
     protected $em;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, $galleryDir)
     {
         $this->em = $entityManager;
+        $this->galleryDir = $galleryDir;
     }
 }

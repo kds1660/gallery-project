@@ -5,11 +5,14 @@
             <a href="#!/gallery/new">
                 <button type="button" class="btn btn-success">Add folder</button>
             </a>
+            <a href="#!/gallery/add">
+                <button type="button" class="btn btn-success">Upload Image</button>
+            </a>
             <button ng-if="$root.dirPath.length" type="button" class="btn btn-success" ng-click="upDir($index)">Up</button>
 
         </div>
         <div class="topic" ng-repeat="directories in gallery.directories track by $index">
-            <directorie-element></directorie-element>
+            <directory-element></directory-element>
 
         </div>
         <div class="topic" ng-repeat="images in gallery.images track by $index">

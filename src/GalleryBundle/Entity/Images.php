@@ -3,7 +3,7 @@
 namespace GalleryBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Images
  *
@@ -26,6 +26,14 @@ class Images
      */
     private $path;
 
+    /**
+     * @Assert\File(
+     *     mimeTypes = {"application/png", "application/jpeg","application/gif","application/svg"},
+     *     mimeTypesMessage = "Please upload a valid PDF"
+     * )
+     */
+
+    private $image;
     /**
      * @var integer
      *
@@ -112,7 +120,7 @@ class Images
      *
      * @return Images
      */
-    public function setPid(\GalleryBundle\Entity\Images $pid = null)
+    public function setPid(\GalleryBundle\Entity\Directories $pid = null)
     {
         $this->pid = $pid;
 
@@ -127,5 +135,17 @@ class Images
     public function getPid()
     {
         return $this->pid;
+    }
+
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
     }
 }

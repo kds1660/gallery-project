@@ -2,11 +2,14 @@
 
 namespace GalleryBundle\Repositories;
 
-use GalleryBundle\Entity\Images;
 use Doctrine\ORM\EntityRepository;
 
 class ElementsQueries extends EntityRepository
 {
+    /**
+     * @param null $pid
+     * @return array
+     */
     public function getImageFromDir($pid = null): array
     {
         $query = $this->createQueryBuilder('e')
@@ -15,7 +18,7 @@ class ElementsQueries extends EntityRepository
             ->where('e.pid=:pid')
             ->setParameter('pid', $pid);
 
-        if (!$pid||$pid=='null') {
+        if (!$pid || $pid == 'null') {
             $query->orWhere('e.pid is NULL');
         }
         return $query->getQuery()->getArrayResult();

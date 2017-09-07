@@ -6,12 +6,12 @@ angular.module('elementDirective', ['ui.router'])
             scope: false,
             link: function (scope, elem) {
                 $(elem[0]).find('.btn').hide();
-                $(elem[0]).hover(function (event) {
-
+                $(elem[0]).hover(function () {
                     $(this).find('.btn').show("medium");
                 }, function () {
                     $(this).find('.btn').hide("medium");
                 });
+
             }
         };
     });

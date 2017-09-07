@@ -6,6 +6,10 @@ gallery_template:
      path:     /templates/{tmpl}
      defaults: { _controller: GalleryBundle:Templates:index }
 
+gallery_folder:
+     path:     /folder
+     defaults: { _controller: GalleryBundle:Default:getFolder }
+
 get_dir_elements:
      path:     /directory/{id}
      defaults: { _controller: GalleryBundle:Directory:getDirElements }
@@ -37,6 +41,6 @@ edit_image:
      methods:  [PUT]
 
 add_image:
-     path:     /directory
-     defaults: { _controller: GalleryBundle:Directory:add }
+     path:     /image
+     defaults: { _controller: GalleryBundle:Image:new }
      methods:  [POST]

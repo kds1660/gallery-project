@@ -6,14 +6,12 @@ var app = angular.module('myApp', [
     'ui.router',
     'ui.bootstrap',
     'galleryRoutes',
-    'galleryController',
-    'elementDirective',
-    'dirDirective',
-    'modalDialog',
+    'galleryControllers',
+    'galleryDirectives',
     'galleryServices'
 ])
 
-    .run(['$rootScope', '$timeout', function ($rootScope, $timeout) {
+    .run(['$rootScope', '$timeout', '$http', function ($rootScope, $timeout, $http) {
         $rootScope.setAlert = function (trueFalse, text) {
             $rootScope.alert = {};
             if (trueFalse === true) {
@@ -30,6 +28,17 @@ var app = angular.module('myApp', [
                 $rootScope.alertTrue = false;
                 $rootScope.alertFalse = false;
             }, 2000)
-        }
+        };
+
+        $http.get('folder').then(
+            function (response) {
+                $rootScope.mainDir = response.data;
+                console.log($rootScope.mainDir);
+            },
+            function () {
+                $rootScope.setAlert(false, response.data);
+            }
+        );
+
     }]);
 
