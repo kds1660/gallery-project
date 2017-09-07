@@ -58,3 +58,7 @@
   width: auto;
   min-width: 150px;
 }
+
+.alert {
+  display: none;
+}

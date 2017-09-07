@@ -14,6 +14,7 @@ var app = angular.module('myApp', [
     .run(['$rootScope', '$timeout', '$http', function ($rootScope, $timeout, $http) {
         $rootScope.setAlert = function (trueFalse, text) {
             $rootScope.alert = {};
+            $('.alert').show();
             if (trueFalse === true) {
                 $rootScope.alertTrue = true;
                 $rootScope.alert.text = text;
