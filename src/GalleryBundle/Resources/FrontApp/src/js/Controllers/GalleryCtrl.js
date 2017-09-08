@@ -1,34 +1,29 @@
 //TODO remove actions in service
 angular.module('galleryController', ['ui.router'])
-    .controller('GalleryCtrl', ['$scope', '$rootScope', 'apiReq', '$state', '$uibModal',
-        function ($scope, $rootScope, apiReq, $state, $uibModal) {
+    .controller('GalleryCtrl', ['$scope', '$rootScope', 'galleryService', 'dirLocator', '$state', '$uibModal',
+        function ($scope, $rootScope, galleryService, dirLocator, $state, $uibModal) {
             var dirPath;
-            if (!$rootScope.dirPath) $rootScope.dirPath = [];
-            dirPath = null;
+        dirLocator.init();
+            dirPath=dirLocator.get();
 
-            if ($rootScope.dirPath[$rootScope.dirPath.length - 1]) {
-                dirPath = $rootScope.dirPath[$rootScope.dirPath.length - 1].id;
-            }
-            apiReq('directory/' + dirPath, 'GET').then(
+            galleryService.getDirElements(dirPath).then(
                 function (response) {
-                    $scope.gallery = response.data;
+                    $scope.gallery = response;
                 },
                 function () {
-                    $scope.setAlert(false, response.data);
+                    $scope.setAlert(false, response);
                     $scope.gallery = [];
                 });
 
             $scope.deleteElement = function ($index) {
-                apiReq('image/' + $scope.gallery.images[$index].id, 'DELETE').then(
+                galleryService.deleteElement($scope.gallery.images[$index].id).then(
                     function (response) {
                         $scope.gallery.images.splice($index, 1);
-                        $scope.setAlert(true, response.data);
-                        console.log(response);
+                        $scope.setAlert(true, response);
                     },
                     function () {
-                        $scope.setAlert(false, response.data);
+                        $scope.setAlert(false, response);
                     });
-
             };
 
             $scope.editImage = function ($index) {
@@ -37,13 +32,13 @@ angular.module('galleryController', ['ui.router'])
             };
 
             $scope.deleteDir = function ($index) {
-                apiReq('directory/' + $scope.gallery.directories[$index].id, 'DELETE').then(
+                galleryService.deleteDir($scope.gallery.directories[$index].id).then(
                     function (response) {
                         $scope.gallery.directories.splice($index, 1);
-                        $scope.setAlert(true, response.data);
+                        $scope.setAlert(true, response);
                     },
                     function () {
-                        $scope.setAlert(false, response.data);
+                        $scope.setAlert(false, response);
                     });
             };
 
@@ -53,34 +48,32 @@ angular.module('galleryController', ['ui.router'])
             };
 
             $scope.openDir = function ($index) {
-                $rootScope.dirPath.push({
+                dirLocator.add({
                     name: $scope.gallery.directories[$index].name,
                     id: $scope.gallery.directories[$index].id
                 });
-                apiReq('directory/' + $scope.gallery.directories[$index].id, 'GET').then(
+
+                galleryService.getDirElements($scope.gallery.directories[$index].id).then(
                     function (response) {
-                        $scope.gallery = response.data;
+                        $scope.gallery = response;
                     },
                     function () {
-                        $scope.setAlert(false, response.data);
+                        $scope.setAlert(false, response);
                         $scope.gallery = [];
                     });
             };
 
             $scope.upDir = function () {
                 var dirPath;
-                $rootScope.dirPath.pop();
-                dirPath = null;
+                dirLocator.remove();
+                dirPath = dirLocator.get();
 
-                if ($rootScope.dirPath[$rootScope.dirPath.length - 1]) {
-                    dirPath = $rootScope.dirPath[$rootScope.dirPath.length - 1].id;
-                }
-                apiReq('directory/' + dirPath, 'GET').then(
+                galleryService.getDirElements(dirPath).then(
                     function (response) {
-                        $scope.gallery = response.data;
+                        $scope.gallery = response;
                     },
                     function () {
-                        $scope.setAlert(false, response.data);
+                        $scope.setAlert(false, response);
                         $scope.gallery = [];
                     });
             };
@@ -88,7 +81,7 @@ angular.module('galleryController', ['ui.router'])
             $scope.showImage = function ($index) {
                 var src;
                 $scope.src = $rootScope.mainDir + $scope.gallery.images[$index].path;
-                console.log($scope.src);
+
                 $uibModal.open({
                     animation: true,
                     scope: $scope,
