@@ -134,7 +134,7 @@ angular.module('galleryServices', [])
                     $rootScope.dirPath.pop()
                 },
                 get:function () {
-                    if ($rootScope.dirPath[$rootScope.dirPath.length - 1]) {
+                    if ($rootScope.dirPath.length) {
                         return $rootScope.dirPath[$rootScope.dirPath.length - 1].id;
                     }
                     return null;
