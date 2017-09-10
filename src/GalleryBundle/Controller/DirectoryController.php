@@ -10,17 +10,21 @@ use Symfony\Component\HttpFoundation\Response;
 class DirectoryController extends Controller
 {
     /**
+     * @param Request $request
      * @param $id
      * @return JsonResponse
      */
-    public function getDirElementsAction($id): JsonResponse
+    public function getDirElementsAction(Request $request, $id): JsonResponse
     {
-        $files = $this->container->get('gallery.image_service');
-        $dirs = $this->container->get('gallery.dir_service');
+        $limit = $request->query->get('limit');
+        $dirOffset = $request->query->get('dirOffset');
+        $imgOffset = $request->query->get('imgOffset');
+        $files = $this->container->get('gallery.image_service')->getImageFromFolder($limit, $imgOffset, $id);
+        $dirs = $this->container->get('gallery.dir_service')->getDirsFromFolder($limit, $dirOffset, $id);
         return new JsonResponse([
             'id' => $id,
-            'images' => $files->getImageFromFolder($id),
-            'directories' => $dirs->getDirsFromFolder($id)
+            'images' => $files,
+            'directories' => $dirs
         ]);
     }
 

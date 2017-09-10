@@ -1,10 +1,12 @@
 //TODO remove actions in service
 angular.module('galleryController', ['ui.router'])
-    .controller('GalleryCtrl', ['$scope', '$rootScope', 'galleryService', 'dirLocator', '$state', '$uibModal',
-        function ($scope, $rootScope, galleryService, dirLocator, $state, $uibModal) {
+    .controller('GalleryCtrl', ['$scope', '$rootScope', 'galleryService', 'dirLocator', 'pageLocator', '$state', '$uibModal',
+        function ($scope, $rootScope, galleryService, dirLocator, pageLocator, $state, $uibModal) {
             var dirPath;
-        dirLocator.init();
-            dirPath=dirLocator.get();
+            dirLocator.init();
+            pageLocator.init();
+
+            dirPath = dirLocator.get();
 
             galleryService.getDirElements(dirPath).then(
                 function (response) {
@@ -52,7 +54,7 @@ angular.module('galleryController', ['ui.router'])
                     name: $scope.gallery.directories[$index].name,
                     id: $scope.gallery.directories[$index].id
                 });
-
+                pageLocator.init();
                 galleryService.getDirElements($scope.gallery.directories[$index].id).then(
                     function (response) {
                         $scope.gallery = response;
@@ -66,6 +68,7 @@ angular.module('galleryController', ['ui.router'])
             $scope.upDir = function () {
                 var dirPath;
                 dirLocator.remove();
+                pageLocator.init();
                 dirPath = dirLocator.get();
 
                 galleryService.getDirElements(dirPath).then(
@@ -87,6 +90,31 @@ angular.module('galleryController', ['ui.router'])
                     scope: $scope,
                     template: "<div><img src='{{src}}'/></div>"
                 });
+            };
+            $scope.next = function () {
+                dirPath = dirLocator.get();
+
+                galleryService.getDirElements(dirPath).then(
+                    function (response) {
+                        $scope.gallery = response;
+                    },
+                    function () {
+                        $scope.setAlert(false, response);
+                        $scope.gallery = [];
+                    });
+            };
+            $scope.home = function () {
+                dirPath = dirLocator.get();
+                pageLocator.init();
+
+                galleryService.getDirElements(dirPath).then(
+                    function (response) {
+                        $scope.gallery = response;
+                    },
+                    function () {
+                        $scope.setAlert(false, response);
+                        $scope.gallery = [];
+                    });
             }
         }
     ]);

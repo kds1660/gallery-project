@@ -10,6 +10,7 @@ var app = angular.module('myApp', [
     'galleryDirectives',
     'galleryServices'
 ])
+    .constant('pageNumberElement', 18)
 
     .run(['$rootScope', '$timeout', '$http', function ($rootScope, $timeout, $http) {
         $rootScope.setAlert = function (trueFalse, text) {

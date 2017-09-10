@@ -73,3 +73,10 @@ assetic:
     #don't use dynamic links to assets, use full production paths
     use_controller: false
     bundles: [GalleryBundle]
+
+doctrine_migrations:
+    dir_name: "%kernel.root_dir%/DoctrineMigrations"
+    namespace: Application\Migrations
+    table_name: gallery
+    name: Gallery Migrations
+    organize_migrations: false

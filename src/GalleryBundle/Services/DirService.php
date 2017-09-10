@@ -13,19 +13,22 @@ class DirService extends AbstractService
 {
     /**
      * @param null $pid
+     * @param $limit
+     * @param $offset
      * @return array
      */
-    public function getDirsFromFolder($pid = null): array
+    public function getDirsFromFolder($limit, $offset, $pid = null): array
     {
         $repository = $this->em->getRepository(Directories::class);
-        return $repository->getImageFromDir($pid);
+        return $repository->getImageFromDir($limit, $offset, $pid);
     }
 
     /**
      * @param $id
      * @return bool|string
      */
-    public function deleteDir($id)
+    public
+    function deleteDir($id)
     {
         $dir = $this->em->find(Directories::class, $id);
 
@@ -47,7 +50,8 @@ class DirService extends AbstractService
      * @param $name
      * @return bool|string
      */
-    public function renameDir($id, $name)
+    public
+    function renameDir($id, $name)
     {
         $dir = $this->em->find(Directories::class, $id);
         if (!$dir) {
@@ -68,7 +72,8 @@ class DirService extends AbstractService
      * @param $pid
      * @return bool|string
      */
-    public function addDir($name, $pid)
+    public
+    function addDir($name, $pid)
     {
         $elmDir = null;
         if ($pid) {

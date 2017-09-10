@@ -1,24 +1,31 @@
 <div class="container">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <p class="dir-path">Currect directory: {{ '{{ ' }}$root.dirPath[$root.dirPath.length-1].name||'rootDir'{{ '}} ' }}</p>
+            <p class="dir-path">Currect directory: {{ '{{ ' }}
+                $root.dirPath[$root.dirPath.length-1].name||'rootDir'{{ '}} ' }}</p>
             <a href="#!/gallery/new">
                 <button type="button" class="btn btn-success">Add folder</button>
             </a>
             <a href="#!/gallery/add">
                 <button type="button" class="btn btn-success">Upload Image</button>
             </a>
-            <button ng-if="$root.dirPath.length" type="button" class="btn btn-success" ng-click="upDir($index)">Up</button>
-
+            <button ng-if="$root.dirPath.length" type="button" class="btn btn-success" ng-click="upDir($index)">Up
+            </button>
         </div>
-        <div class="topic" ng-repeat="directories in gallery.directories track by $index">
-            <directory-element></directory-element>
-
+        <div class="panel-body">
+            <div class="topic" ng-repeat="directories in gallery.directories track by $index">
+                <directory-element></directory-element>
+            </div>
+            <div class="topic" ng-repeat="images in gallery.images track by $index">
+                <gallery-element></gallery-element>
+            </div>
         </div>
-        <div class="topic" ng-repeat="images in gallery.images track by $index">
-            <gallery-element></gallery-element>
+        <div class="panel-footer">
+            <div>
+                <button type="button" class="btn btn-success" ng-click="home()">Home</button>
+                <button type="button" class="btn btn-success btn-next" ng-click="next()">Next</button>
+            </div>
         </div>
-
     </div>
 </div>
 <!--<img src="gallery/anna-bobrova.jpg">-->

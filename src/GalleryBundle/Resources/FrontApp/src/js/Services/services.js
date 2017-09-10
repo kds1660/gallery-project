@@ -3,11 +3,12 @@ angular.module('galleryServices', [])
 
     .factory('apiReq', ['$http', 'api_url',
         function ($http, api_url) {
-            return function (url, method, data) {
+            return function (url, method, data, params) {
                 var conf = {
                     method: method,
                     url: api_url + url,
-                    data: data
+                    data: data,
+                    params: params
                 };
                 return $http(conf)
                     .then(function (response) {
@@ -20,12 +21,28 @@ angular.module('galleryServices', [])
         }
     ])
 
-    .factory('galleryService', ['$http', 'apiReq', '$q', function ($http, apiReq, $q) {
+    .factory('galleryService', ['$http', 'apiReq', '$q', 'pageLocator', function ($http, apiReq, $q, pageLocator) {
         return {
             getDirElements: function (dir) {
                 var deferred = $q.defer();
-                apiReq('directory/' + dir, 'GET').then(
+                var dirLength, imgLength;
+                apiReq('directory/' + dir, 'GET', '', pageLocator.get()).then(
                     function (response) {
+                        if (response.data.directories.length >= pageLocator.getLimit()) {
+                            dirLength = pageLocator.getLimit();
+                            response.data.images = [];
+                            imgLength = 0;
+                        }
+                        if (response.data.directories.length < pageLocator.getLimit()) {
+                            dirLength = response.data.directories.length;
+                            response.data.images = response.data.images.slice(0, pageLocator.getLimit() - dirLength);
+                            imgLength = response.data.images.length;
+                        }
+
+                        if (response.data.directories.length + response.data.images.length < pageLocator.getLimit()) {
+                            $('.btn-next').hide();
+                        }
+                        pageLocator.next(dirLength, imgLength);
                         deferred.resolve(response.data);
                     },
                     function () {
@@ -130,14 +147,41 @@ angular.module('galleryServices', [])
                 add: function (data) {
                     $rootScope.dirPath.push(data)
                 },
-                remove:function () {
+                remove: function () {
                     $rootScope.dirPath.pop()
                 },
-                get:function () {
+                get: function () {
                     if ($rootScope.dirPath.length) {
                         return $rootScope.dirPath[$rootScope.dirPath.length - 1].id;
                     }
                     return null;
+                }
+            }
+        }
+    ])
+
+    .factory('pageLocator', ['$rootScope', 'pageNumberElement',
+        function ($rootScope,pageNumberElement) {
+            return {
+                init: function () {
+                    $rootScope.limit = pageNumberElement;
+                    $rootScope.page = {
+                        imgOffset: 0,
+                        dirOffset: 0
+                    };
+                    $('.btn-next').show();
+                },
+                next: function (dirOffset, imgOffset) {
+                    $rootScope.page.dirOffset += dirOffset;
+                    $rootScope.page.imgOffset += imgOffset;
+
+                },
+                get: function () {
+                    $rootScope.page.limit=$rootScope.limit;
+                    return $rootScope.page;
+                },
+                getLimit: function () {
+                    return $rootScope.limit;
                 }
             }
         }

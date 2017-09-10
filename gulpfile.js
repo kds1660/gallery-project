@@ -46,8 +46,8 @@ gulp.task('angular-app-js', function() {
         'src/GalleryBundle/Resources/FrontApp/src/js/Directives/*.js',
         'src/GalleryBundle/Resources/FrontApp/src/js/Services/*.js'])
         .pipe(concat('angular-app.min.js'))
-       /* .pipe(ngAnnotate())
-        .pipe(minifyJs())*/
+        .pipe(ngAnnotate())
+        .pipe(minifyJs())
         .pipe(gulp.dest('web/js/'))
         .pipe(notify("Gulp watch: angular-app-js task completed."));
 });

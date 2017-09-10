@@ -27,14 +27,6 @@ class Images
     private $path;
 
     /**
-     * @Assert\File(
-     *     mimeTypes = {"application/png", "application/jpeg","application/gif","application/svg"},
-     *     mimeTypesMessage = "Please upload a valid PDF"
-     * )
-     */
-
-    private $image;
-    /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")

@@ -10,13 +10,15 @@ use \Imagick;
 class ImageService extends AbstractService
 {
     /**
+     * @param $limit
+     * @param $offset
      * @param null $pid
      * @return array
      */
-    public function getImageFromFolder($pid = null): array
+    public function getImageFromFolder($limit, $offset, $pid = null): array
     {
         $repository = $this->em->getRepository(Images::class);
-        return $repository->getImageFromDir($pid);
+        return $repository->getImageFromDir($limit, $offset, $pid);
     }
 
     /**
@@ -37,6 +39,14 @@ class ImageService extends AbstractService
         } catch (DBALException $e) {
             return $e->getMessage();
         }
+        if (file_exists($this->galleryDir . 'thumb_' . $image->getPath())) {
+            unlink($this->galleryDir . 'thumb_' . $image->getPath());
+        }
+        if (file_exists($this->galleryDir . $image->getPath())) {
+            unlink($this->galleryDir . $image->getPath());
+        }
+
+
         return false;
     }
 
