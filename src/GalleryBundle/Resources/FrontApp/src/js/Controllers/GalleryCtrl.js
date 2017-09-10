@@ -22,6 +22,7 @@ angular.module('galleryController', ['ui.router'])
                     function (response) {
                         $scope.gallery.images.splice($index, 1);
                         $scope.setAlert(true, response);
+                        $scope.home();
                     },
                     function () {
                         $scope.setAlert(false, response);
@@ -38,6 +39,7 @@ angular.module('galleryController', ['ui.router'])
                     function (response) {
                         $scope.gallery.directories.splice($index, 1);
                         $scope.setAlert(true, response);
+                        $scope.home();
                     },
                     function () {
                         $scope.setAlert(false, response);
