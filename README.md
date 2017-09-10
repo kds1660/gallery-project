@@ -11,11 +11,12 @@ gulp
 
 Config
 -----------------------------
-GalleryBundle/Resuorces/config.yml
+GalleryBundle/Resources/config.yml
 ***
 contains gallery directory parameter (default 'gallery/')
 ***
-
+in GalleryBundle/Resources/FrontApp/src/js/app.js
+.constant('pageNumberElement', **SetElementsForPage**)
 
 Requirements
 -----------------------------
