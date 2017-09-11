@@ -1,12 +1,10 @@
 angular.module('galleryServices', [])
-    .constant('api_url', 'http://localhost:8000/')
-
-    .factory('apiReq', ['$http', 'api_url',
-        function ($http, api_url) {
+    .factory('apiReq', ['$http',
+        function ($http) {
             return function (url, method, data, params) {
                 var conf = {
                     method: method,
-                    url: api_url + url,
+                    url: url,
                     data: data,
                     params: params
                 };
@@ -161,7 +159,7 @@ angular.module('galleryServices', [])
     ])
 
     .factory('pageLocator', ['$rootScope', 'pageNumberElement',
-        function ($rootScope,pageNumberElement) {
+        function ($rootScope, pageNumberElement) {
             return {
                 init: function () {
                     $rootScope.limit = pageNumberElement;
@@ -177,7 +175,7 @@ angular.module('galleryServices', [])
 
                 },
                 get: function () {
-                    $rootScope.page.limit=$rootScope.limit;
+                    $rootScope.page.limit = $rootScope.limit;
                     return $rootScope.page;
                 },
                 getLimit: function () {

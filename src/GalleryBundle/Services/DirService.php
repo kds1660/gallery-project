@@ -27,8 +27,7 @@ class DirService extends AbstractService
      * @param $id
      * @return bool|string
      */
-    public
-    function deleteDir($id)
+    public function deleteDir($id)
     {
         $dir = $this->em->find(Directories::class, $id);
 
@@ -50,8 +49,7 @@ class DirService extends AbstractService
      * @param $name
      * @return bool|string
      */
-    public
-    function renameDir($id, $name)
+    public function renameDir($id, $name)
     {
         $dir = $this->em->find(Directories::class, $id);
         if (!$dir) {
@@ -72,8 +70,7 @@ class DirService extends AbstractService
      * @param $pid
      * @return bool|string
      */
-    public
-    function addDir($name, $pid)
+    public function addDir($name, $pid)
     {
         $elmDir = null;
         if ($pid) {

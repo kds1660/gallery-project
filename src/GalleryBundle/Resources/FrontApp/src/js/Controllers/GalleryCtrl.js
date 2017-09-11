@@ -90,8 +90,8 @@ angular.module('galleryController', ['ui.router'])
                 $uibModal.open({
                     animation: true,
                     scope: $scope,
-                    template: "<div><img src='{{src}}'/></div>"
-                });
+                    template: "<div><img ng-src='{{src}}'||''/></div>"
+                }).result.then(function(){}, function(res){});
             };
             $scope.next = function () {
                 dirPath = dirLocator.get();
@@ -120,7 +120,3 @@ angular.module('galleryController', ['ui.router'])
             }
         }
     ]);
-
-
-
-
