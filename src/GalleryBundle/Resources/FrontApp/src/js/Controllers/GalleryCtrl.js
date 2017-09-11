@@ -24,7 +24,7 @@ angular.module('galleryController', ['ui.router'])
                         $scope.setAlert(true, response);
                         $scope.home();
                     },
-                    function () {
+                    function (response) {
                         $scope.setAlert(false, response);
                     });
             };
@@ -41,7 +41,7 @@ angular.module('galleryController', ['ui.router'])
                         $scope.setAlert(true, response);
                         $scope.home();
                     },
-                    function () {
+                    function (response) {
                         $scope.setAlert(false, response);
                     });
             };
@@ -61,7 +61,7 @@ angular.module('galleryController', ['ui.router'])
                     function (response) {
                         $scope.gallery = response;
                     },
-                    function () {
+                    function (response) {
                         $scope.setAlert(false, response);
                         $scope.gallery = [];
                     });
@@ -77,7 +77,7 @@ angular.module('galleryController', ['ui.router'])
                     function (response) {
                         $scope.gallery = response;
                     },
-                    function () {
+                    function (response) {
                         $scope.setAlert(false, response);
                         $scope.gallery = [];
                     });
@@ -100,7 +100,7 @@ angular.module('galleryController', ['ui.router'])
                     function (response) {
                         $scope.gallery = response;
                     },
-                    function () {
+                    function (response) {
                         $scope.setAlert(false, response);
                         $scope.gallery = [];
                     });
@@ -113,7 +113,7 @@ angular.module('galleryController', ['ui.router'])
                     function (response) {
                         $scope.gallery = response;
                     },
-                    function () {
+                    function (response) {
                         $scope.setAlert(false, response);
                         $scope.gallery = [];
                     });

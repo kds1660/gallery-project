@@ -43,7 +43,7 @@ angular.module('galleryServices', [])
                         pageLocator.next(dirLength, imgLength);
                         deferred.resolve(response.data);
                     },
-                    function () {
+                    function (response) {
                         deferred.reject(response.data);
                     });
                 return deferred.promise;
@@ -55,7 +55,7 @@ angular.module('galleryServices', [])
                     function (response) {
                         deferred.resolve(response.data);
                     },
-                    function () {
+                    function (response) {
                         deferred.reject(response.data);
                     });
                 return deferred.promise;
@@ -67,7 +67,7 @@ angular.module('galleryServices', [])
                     function (response) {
                         deferred.resolve(response.data);
                     },
-                    function () {
+                    function (response) {
                         deferred.reject(response.data);
                     });
                 return deferred.promise;

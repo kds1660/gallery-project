@@ -25,9 +25,9 @@ class DirService extends AbstractService
 
     /**
      * @param $id
-     * @return bool|string
+     * @return string
      */
-    public function deleteDir($id)
+    public function deleteDir($id): string
     {
         $dir = $this->em->find(Directories::class, $id);
 
@@ -41,15 +41,15 @@ class DirService extends AbstractService
         } catch (DBALException $e) {
             return $e->getMessage();
         }
-        return false;
+        return '';
     }
 
     /**
      * @param $id
      * @param $name
-     * @return bool|string
+     * @return string
      */
-    public function renameDir($id, $name)
+    public function renameDir($id, $name): string
     {
         $dir = $this->em->find(Directories::class, $id);
         if (!$dir) {
@@ -62,15 +62,15 @@ class DirService extends AbstractService
         } catch (DBALException $e) {
             return $e->getMessage();
         }
-        return false;
+        return '';
     }
 
     /**
      * @param $name
      * @param $pid
-     * @return bool|string
+     * @return string
      */
-    public function addDir($name, $pid)
+    public function addDir($name, $pid): string
     {
         $elmDir = null;
         if ($pid) {
@@ -86,6 +86,6 @@ class DirService extends AbstractService
         } catch (DBALException $e) {
             return $e->getMessage();
         }
-        return false;
+        return '';
     }
 }

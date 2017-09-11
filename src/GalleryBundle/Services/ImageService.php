@@ -25,7 +25,7 @@ class ImageService extends AbstractService
      * @param $id
      * @return bool|string
      */
-    public function deleteImage($id)
+    public function deleteImage($id): string
     {
         $image = $this->em->find(Images::class, $id);
 
@@ -47,7 +47,7 @@ class ImageService extends AbstractService
         }
 
 
-        return false;
+        return '';
     }
 
     /**
@@ -55,7 +55,7 @@ class ImageService extends AbstractService
      * @param $name
      * @return bool|string
      */
-    public function renameImage($id, $name)
+    public function renameImage($id, $name): string
     {
         $image = $this->em->find(Images::class, $id);
 
@@ -77,9 +77,9 @@ class ImageService extends AbstractService
      * @param $name
      * @param $pid
      * @param $file
-     * @return bool|string
+     * @return string
      */
-    public function addImage($name, $pid, $file)
+    public function addImage($name, $pid, $file): string
     {
         $parentDir = null;
 
@@ -113,6 +113,6 @@ class ImageService extends AbstractService
         } catch (DBALException $e) {
             return $e->getMessage();
         }
-        return false;
+        return '';
     }
 }
