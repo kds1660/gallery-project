@@ -35,7 +35,6 @@ var app = angular.module('myApp', [
         $http.get('folder').then(
             function (response) {
                 $rootScope.mainDir = response.data;
-                console.log($rootScope.mainDir);
             },
             function () {
                 $rootScope.setAlert(false, response.data);
