@@ -19,10 +19,9 @@ class DirectoryController extends Controller
      */
     public function __construct(Container $container)
     {
-        $this->imageService = $container->get('gallery.image_service');
-        $this->dirService = $container->get('gallery.dir_service');
+        $this->imageService=$container->get('gallery.image_service');
+        $this->dirService=$container->get('gallery.dir_service');
     }
-
     /**
      * @param Request $request
      * @param $id
