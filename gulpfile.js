@@ -42,6 +42,7 @@ gulp.task('vendors-js', function() {
 
 gulp.task('angular-app-js', function() {
     gulp.src(['src/GalleryBundle/Resources/FrontApp/src/js/*.js',
+        'src/GalleryBundle/Resources/FrontApp/src/js/GlobalFunctions/*.js',
         'src/GalleryBundle/Resources/FrontApp/src/js/Controllers/*.js',
         'src/GalleryBundle/Resources/FrontApp/src/js/Directives/*.js',
         'src/GalleryBundle/Resources/FrontApp/src/js/Services/*.js'])

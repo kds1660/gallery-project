@@ -2,7 +2,7 @@ angular.module('galleryRoutes', ['ui.router'])
     .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
         $stateProvider
             .state('gallery', {
-                url: '/gallery',
+                url: '/gallery/view/:id',
                 templateUrl: 'templates/gallery',
                 controller: 'GalleryCtrl'
             })
@@ -25,5 +25,5 @@ angular.module('galleryRoutes', ['ui.router'])
                 controller: 'GalleryAddImgCtrl'
             });
 
-        $urlRouterProvider.otherwise("/gallery");
+        $urlRouterProvider.otherwise("/gallery/view/");
     }]);

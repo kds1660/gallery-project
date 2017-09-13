@@ -62,3 +62,17 @@
 .alert {
   display: none;
 }
+
+.path {
+  cursor: pointer;
+  font-size: large;
+}
+directory-element{
+  cursor: pointer;
+}
+gallery-element {
+  cursor:nesw-resize;
+}
+.imageButtons {
+  cursor: pointer;
+}

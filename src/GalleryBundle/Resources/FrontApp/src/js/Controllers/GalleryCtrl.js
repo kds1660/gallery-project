@@ -1,12 +1,10 @@
-//TODO remove actions in service
 angular.module('galleryController', ['ui.router'])
-    .controller('GalleryCtrl', ['$scope', '$rootScope', 'galleryService', 'dirLocator', 'pageLocator', '$state', '$uibModal',
-        function ($scope, $rootScope, galleryService, dirLocator, pageLocator, $state, $uibModal) {
+    .controller('GalleryCtrl', ['$http', '$scope', '$rootScope', '$state', '$uibModal', '$stateParams', 'modalService', 'galleryService', 'dirLocator', 'pageLocator',
+        function ($http, $scope, $rootScope, $state, $uibModal, $stateParams, modalService, galleryService, dirLocator, pageLocator) {
             var dirPath;
-            dirLocator.init();
             pageLocator.init();
-
-            dirPath = dirLocator.get();
+            dirPath = $state.params.id || dirLocator.get();
+            dirLocator.init(dirPath);
 
             galleryService.getDirElements(dirPath).then(
                 function (response) {
@@ -18,15 +16,18 @@ angular.module('galleryController', ['ui.router'])
                 });
 
             $scope.deleteElement = function ($index) {
-                galleryService.deleteElement($scope.gallery.images[$index].id).then(
-                    function (response) {
-                        $scope.gallery.images.splice($index, 1);
-                        $scope.setAlert(true, response);
-                        $scope.home();
-                    },
-                    function (response) {
-                        $scope.setAlert(false, response);
-                    });
+                modalService.confirm().then(function () {
+                    galleryService.deleteElement($scope.gallery.images[$index].id).then(
+                        function (response) {
+                            $scope.gallery.images.splice($index, 1);
+                            $scope.setAlert(true, response);
+                            $scope.home();
+                        },
+                        function (response) {
+                            $scope.setAlert(false, response);
+                        });
+                }, function () {
+                });
             };
 
             $scope.editImage = function ($index) {
@@ -35,15 +36,18 @@ angular.module('galleryController', ['ui.router'])
             };
 
             $scope.deleteDir = function ($index) {
-                galleryService.deleteDir($scope.gallery.directories[$index].id).then(
-                    function (response) {
-                        $scope.gallery.directories.splice($index, 1);
-                        $scope.setAlert(true, response);
-                        $scope.home();
-                    },
-                    function (response) {
-                        $scope.setAlert(false, response);
-                    });
+                modalService.confirm().then(function () {
+                    galleryService.deleteDir($scope.gallery.directories[$index].id).then(
+                        function (response) {
+                            $scope.gallery.directories.splice($index, 1);
+                            $scope.setAlert(true, response);
+                            $scope.home();
+                        },
+                        function (response) {
+                            $scope.setAlert(false, response);
+                        });
+                }, function () {
+                });
             };
 
             $scope.editDir = function ($index) {
@@ -57,6 +61,7 @@ angular.module('galleryController', ['ui.router'])
                     id: $scope.gallery.directories[$index].id
                 });
                 pageLocator.init();
+                $state.go('gallery', {id: $scope.gallery.directories[$index].id});
                 galleryService.getDirElements($scope.gallery.directories[$index].id).then(
                     function (response) {
                         $scope.gallery = response;
@@ -72,7 +77,7 @@ angular.module('galleryController', ['ui.router'])
                 dirLocator.remove();
                 pageLocator.init();
                 dirPath = dirLocator.get();
-
+                $state.go('gallery', {id: dirPath});
                 galleryService.getDirElements(dirPath).then(
                     function (response) {
                         $scope.gallery = response;
@@ -91,8 +96,11 @@ angular.module('galleryController', ['ui.router'])
                     animation: true,
                     scope: $scope,
                     template: "<div><img ng-src='{{src}}'||''/></div>"
-                }).result.then(function(){}, function(res){});
+                }).result.then(function () {
+                }, function (res) {
+                });
             };
+
             $scope.next = function () {
                 dirPath = dirLocator.get();
 
@@ -105,6 +113,7 @@ angular.module('galleryController', ['ui.router'])
                         $scope.gallery = [];
                     });
             };
+
             $scope.home = function () {
                 dirPath = dirLocator.get();
                 pageLocator.init();
@@ -117,6 +126,11 @@ angular.module('galleryController', ['ui.router'])
                         $scope.setAlert(false, response);
                         $scope.gallery = [];
                     });
+            };
+
+            $scope.mainPage = function () {
+                $rootScope.dirPath = [];
+                $state.go('gallery', {id: null});
             }
         }
     ]);

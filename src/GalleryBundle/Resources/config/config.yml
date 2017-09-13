@@ -1,2 +1,9 @@
 parameters:
     gallery_directory: 'gallery/'
+    image_size:
+        image:
+            width: 1024
+            height: 768
+        thumb:
+            width: 150
+            height: 150

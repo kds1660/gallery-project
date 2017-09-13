@@ -93,14 +93,16 @@ class ImageService extends AbstractService
             $this->galleryDir,
             $fileName
         );
+        $imageSize = $this->imageSize['image'];
+        $thumbSize = $this->imageSize['thumb'];
 
         $image = new Imagick($this->galleryDir . $fileName);
 
-        if ($image->getImageWidth() > 1024 || $image->getImageHeight() > 768) {
-            $image->adaptiveResizeImage(1024, 768);
+        if ($image->getImageWidth() > $imageSize['width'] || $image->getImageHeight() > $imageSize['height']) {
+            $image->adaptiveResizeImage($imageSize['width'], $imageSize['height']);
             $image->writeImage($this->galleryDir . $fileName);
         }
-        $image->adaptiveResizeImage(150, 150);
+        $image->adaptiveResizeImage($thumbSize['height'], $thumbSize['height']);
         $image->writeImage($this->galleryDir . 'thumb_' . $fileName);
 
         try {

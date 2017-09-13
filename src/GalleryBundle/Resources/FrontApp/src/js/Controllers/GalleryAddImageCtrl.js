@@ -3,21 +3,22 @@ angular.module('galleryAddImgController', ['ui.router'])
         function (galleryService, $scope, $rootScope, dirLocator, $stateParams, $state) {
             var form, img;
             $scope.loadingImage = {};
+            inputFocus();
 
             $scope.saveImage = function () {
                 img = ($(".image"))[0];
                 $scope.loadingImage.imageName = img.name;
-                $scope.loadingImage.pid=dirLocator.get();
+                $scope.loadingImage.pid= dirLocator.get();
                 form = new FormData();
                 form.append('file', img.files[0]);
-                form.append('name', $scope.loadingImage.name);
+                form.append('name', $($scope.loadingImage.name).text()||$scope.loadingImage.name);
                 form.append('pid', $scope.loadingImage.pid);
 
                 if ($scope.loadingImage.name && $scope.loadingImage.image && $scope.ImageType) {
                     galleryService.addImage(form).then(
                         function (response) {
                             $scope.setAlert(true, response);
-                            $state.go('gallery');
+                            $state.go('gallery',{id: $scope.loadingImage.pid});
                         },
                         function (response) {
                             $scope.setAlert(false, response);

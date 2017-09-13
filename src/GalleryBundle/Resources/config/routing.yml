@@ -1,46 +1,50 @@
 gallery_show:
     path:     /
-    defaults: { _controller: GalleryBundle:Default:index }
+    defaults: { _controller: gallery.default_controller:indexAction }
 
 gallery_template:
      path:     /templates/{tmpl}
-     defaults: { _controller: GalleryBundle:Templates:index }
+     defaults: { _controller: gallery.templates_controller:indexAction }
 
 gallery_folder:
      path:     /folder
-     defaults: { _controller: GalleryBundle:Default:getFolder }
+     defaults: { _controller: gallery.default_controller:getFolder }
 
 get_dir_elements:
      path:     /directory/{id}
-     defaults: { _controller: GalleryBundle:Directory:getDirElements }
+     defaults: { _controller: gallery.dir_controller:getDirElements }
      methods:  [GET]
 
 del_dir:
      path:     /directory/{id}
-     defaults: { _controller: GalleryBundle:Directory:delete }
+     defaults: { _controller: gallery.dir_controller:delete }
      methods:  [DELETE]
 
 edit_dir:
      path:     /directory/{id}
-     defaults: { _controller: GalleryBundle:Directory:edit }
+     defaults: { _controller: gallery.dir_controller:edit }
      methods:  [PUT]
 
 add_dir:
      path:     /directory
-     defaults: { _controller: GalleryBundle:Directory:add }
+     defaults: { _controller: gallery.dir_controller:add }
      methods:  [POST]
 
 del_image:
      path:     /image/{id}
-     defaults: { _controller: GalleryBundle:Image:delete }
+     defaults: { _controller: gallery.image_controller:delete }
      methods:  [DELETE]
 
 edit_image:
      path:     /image/{id}
-     defaults: { _controller: GalleryBundle:Image:edit }
+     defaults: { _controller: gallery.image_controller:edit }
      methods:  [PUT]
 
 add_image:
      path:     /image
-     defaults: { _controller: GalleryBundle:Image:new }
+     defaults: { _controller: gallery.image_controller:newImage }
      methods:  [POST]
+
+get_path:
+     path:     /getPath
+     defaults: { _controller: gallery.dir_controller:getPath }

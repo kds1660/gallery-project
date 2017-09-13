@@ -3,11 +3,9 @@
 namespace GalleryBundle\Services;
 
 use Doctrine\DBAL\DBALException;
-use Doctrine\DBAL\Schema\AbstractAsset;
 use GalleryBundle\Entity\Directories;
-use GalleryBundle\Entity\Images;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Doctrine\ORM\ORMException;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DirService extends AbstractService
 {
@@ -87,5 +85,20 @@ class DirService extends AbstractService
             return $e->getMessage();
         }
         return '';
+    }
+
+    /**
+     * @param $id
+     * @return JsonResponse
+     */
+    public function getDirParents($id): JsonResponse
+    {
+        $dir = $this->em->find(Directories::class, $id);
+        $normalizer = new GetSetMethodNormalizer();
+
+        if ($dir) {
+            return new JsonResponse($normalizer->normalize($dir));
+        }
+        return new JsonResponse('');
     }
 }

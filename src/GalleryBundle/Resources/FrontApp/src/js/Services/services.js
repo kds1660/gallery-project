@@ -26,6 +26,10 @@ angular.module('galleryServices', [])
                 var dirLength, imgLength;
                 apiReq('directory/' + dir, 'GET', '', pageLocator.get()).then(
                     function (response) {
+                        if (response.data.directories.length + response.data.images.length <= pageLocator.getLimit()) {
+                            $('.btn-next').hide();
+                        }
+
                         if (response.data.directories.length >= pageLocator.getLimit()) {
                             dirLength = pageLocator.getLimit();
                             response.data.images = [];
@@ -35,10 +39,6 @@ angular.module('galleryServices', [])
                             dirLength = response.data.directories.length;
                             response.data.images = response.data.images.slice(0, pageLocator.getLimit() - dirLength);
                             imgLength = response.data.images.length;
-                        }
-
-                        if (response.data.directories.length + response.data.images.length < pageLocator.getLimit()) {
-                            $('.btn-next').hide();
                         }
                         pageLocator.next(dirLength, imgLength);
                         deferred.resolve(response.data);
@@ -136,11 +136,23 @@ angular.module('galleryServices', [])
         };
     }])
 
-    .factory('dirLocator', ['$rootScope',
-        function ($rootScope) {
+    .factory('dirLocator', ['$rootScope', 'apiReq', '$q',
+        function ($rootScope, apiReq, $q) {
             return {
-                init: function () {
+                init: function (id) {
+                    var deferred = $q.defer();
                     if (!$rootScope.dirPath) $rootScope.dirPath = [];
+                    apiReq('getPath', 'GET', '', {'id': id}).then(
+                        function (response) {
+                            $rootScope.dirPath = [];
+                            dirItterator(response.data, $rootScope.dirPath);
+                            $rootScope.dirPath.reverse();
+                            deferred.resolve(response.data);
+                        },
+                        function (response) {
+                            deferred.reject(response.data);
+                        });
+
                 },
                 add: function (data) {
                     $rootScope.dirPath.push(data)
@@ -149,7 +161,7 @@ angular.module('galleryServices', [])
                     $rootScope.dirPath.pop()
                 },
                 get: function () {
-                    if ($rootScope.dirPath.length) {
+                    if ($rootScope.dirPath && $rootScope.dirPath.length) {
                         return $rootScope.dirPath[$rootScope.dirPath.length - 1].id;
                     }
                     return null;
@@ -183,4 +195,26 @@ angular.module('galleryServices', [])
                 }
             }
         }
+    ])
+
+    .factory('modalService', ['$http', '$q', '$uibModal',
+        function ($http, $q, $uibModal) {
+            return {
+                confirm: function () {
+                    var deferred = $q.defer();
+                    $http.get('templates/confirmDelete').then(function (response) {
+                        $uibModal.open({
+                            animation: true,
+                            template: response.data
+                        }).result.then(function () {
+                            deferred.resolve();
+                        }, function (res) {
+                            deferred.reject();
+                        });
+                    });
+                    return deferred.promise;
+                }
+            }
+        }
     ]);
+

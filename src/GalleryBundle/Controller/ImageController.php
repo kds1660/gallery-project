@@ -5,16 +5,31 @@ namespace GalleryBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\DependencyInjection\Container;
 
 class ImageController extends Controller
 {
+
+    protected $imageService;
+    protected $dirService;
+
+    /**
+     * ImageController constructor.
+     * @param Container $container
+     */
+    public function __construct(Container $container)
+    {
+        $this->imageService = $container->get('gallery.image_service');
+        $this->dirService = $container->get('gallery.dir_service');
+    }
+
     /**
      * @param $id
      * @return Response
      */
-    public function deleteAction($id): Response
+    public function delete($id): Response
     {
-        $result = $this->container->get('gallery.image_service')->deleteImage($id);
+        $result = $this->imageService->deleteImage($id);
 
         if ($result) {
             return new Response($result, 500);
@@ -27,10 +42,10 @@ class ImageController extends Controller
      * @param $id
      * @return Response
      */
-    public function editAction(Request $request, $id): Response
+    public function edit(Request $request, $id): Response
     {
         $newName = $request->getContent();
-        $result = $this->container->get('gallery.image_service')->renameImage($id, $newName);
+        $result = $this->imageService->renameImage($id, $newName);
 
         if ($result) {
             return new Response($result, 500);
@@ -42,13 +57,13 @@ class ImageController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function newAction(Request $request): Response
+    public function newImage(Request $request): Response
     {
         $file = $request->files->get('file');
         $imgName = $request->request->get('name');
         $imgPid = $request->request->get('pid');
 
-        $result = $this->container->get('gallery.image_service')->addImage($imgName, $imgPid, $file);
+        $result = $this->imageService->addImage($imgName, $imgPid, $file);
 
         if ($result) {
             return new Response($result, 500);
