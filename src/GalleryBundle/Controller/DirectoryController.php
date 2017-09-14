@@ -22,6 +22,7 @@ class DirectoryController extends Controller
         $this->imageService=$container->get('gallery.image_service');
         $this->dirService=$container->get('gallery.dir_service');
     }
+
     /**
      * @param Request $request
      * @param $id

@@ -20,7 +20,7 @@ class TemplatesController
 
     /**
      * @param $tmpl
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function indexAction($tmpl): Response
     {

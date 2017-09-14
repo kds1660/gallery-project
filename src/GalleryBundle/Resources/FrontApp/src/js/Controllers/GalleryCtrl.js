@@ -62,6 +62,7 @@ angular.module('galleryController', ['ui.router'])
                 });
                 pageLocator.init();
                 $state.go('gallery', {id: $scope.gallery.directories[$index].id});
+
                 galleryService.getDirElements($scope.gallery.directories[$index].id).then(
                     function (response) {
                         $scope.gallery = response;
@@ -78,6 +79,7 @@ angular.module('galleryController', ['ui.router'])
                 pageLocator.init();
                 dirPath = dirLocator.get();
                 $state.go('gallery', {id: dirPath});
+
                 galleryService.getDirElements(dirPath).then(
                     function (response) {
                         $scope.gallery = response;
