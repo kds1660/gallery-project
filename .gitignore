@@ -1,11 +1,10 @@
 /.web-server-pid
-/app/config/parameters.yml
 /build/
 /phpunit.xml
 /var/*
 /vendor/
-/web/*
-!/web/gallery
 /node_modules
+/web/js
+/web/css
+/web/bundles/*
 /.idea
-!/web/bundles
