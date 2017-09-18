@@ -8,15 +8,15 @@
                     </a>
                 </span>
                 <span class="path" ng-repeat="dirs in $root.dirPath track by $index">
-                    <a href="#!/gallery/view/{{ '{{ ' }}dirs.id{{ '}} ' }}">
+                    <a ui-sref="gallery({id:dirs.id})">
                         {{ '{{ ' }}dirs.name{{ '}} ' }}<span>/</span>
                     </a>
                 </span>
             </div>
-            <a href="#!/gallery/new">
+            <a ui-sref="addDir">
                 <button type="button" class="btn btn-success">Add folder</button>
             </a>
-            <a href="#!/gallery/add">
+            <a ui-sref="addImage">
                 <button type="button" class="btn btn-success">Upload Image</button>
             </a>
             <button ng-if="$root.dirPath.length" type="button" class="btn btn-success" ng-click="upDir($index)">Up

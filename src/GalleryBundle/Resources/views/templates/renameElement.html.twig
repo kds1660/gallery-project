@@ -1,14 +1,12 @@
 <div>
     <div class="modal-header">
-    <h3 class="modal-title">Add/Rename</h3>
-</div>
-<div class="modal-body">
-    <input class='elmName' type='text' size='40' value="{{ '{{ ' }}Elm.name   {{ '}} ' }}">
-</div>
-<div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="submit()">OK</button>
-    <a href="#!/gallery">
-    <button class="btn btn-warning" type="button" >Cancel</button>
-    </a>
-</div>
+        <h3 class="modal-title">Add/Rename</h3>
     </div>
+    <div class="modal-body">
+        <input class='elmName' type='text' size='40' value="{{ '{{ ' }}Elm.name{{ '}} ' }}">
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="submit()">OK</button>
+        <a class="viewButton btn btn-warning" href="/">Cancel</a>
+    </div>
+</div>

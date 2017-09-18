@@ -48,3 +48,9 @@ add_image:
 get_path:
      path:     /getPath
      defaults: { _controller: gallery.dir_controller:getPath }
+
+any_default:
+    path:     /{any}
+    defaults: { _controller: gallery.default_controller:indexAction }
+    requirements:
+     any: ".+"

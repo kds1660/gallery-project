@@ -7,8 +7,8 @@ angular.module('galleryRenameController', ['ui.router'])
                 var elmName;
                 $rootScope.Elm = '';
                 elmName = $('.elmName').val().trim();
-                if ($stateParams.type === 'dir') {
 
+                if ($stateParams.type === 'dir') {
                     galleryService.renameDir($stateParams.id,elmName).then(
                         function (response) {
                             $scope.setAlert(true, response);
@@ -27,7 +27,7 @@ angular.module('galleryRenameController', ['ui.router'])
                         },
                         function () {
                             $scope.setAlert(true, response);
-                        }                    );
+                        });
                 }
             }
         }
