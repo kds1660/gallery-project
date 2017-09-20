@@ -25,10 +25,8 @@ class ImageService extends AbstractService
      * @param $id
      * @return bool|string
      */
-    public function deleteImage($id): string
+    public function deleteImage($image): string
     {
-        $image = $this->em->find(Images::class, $id);
-
         if (!$image) {
             return 'The image with this id does not exist';
         }
@@ -55,10 +53,8 @@ class ImageService extends AbstractService
      * @param $name
      * @return bool|string
      */
-    public function renameImage($id, $name): string
+    public function renameImage($image, $name): string
     {
-        $image = $this->em->find(Images::class, $id);
-
         if (!$image) {
             return 'The image with this id does not exist';
         }

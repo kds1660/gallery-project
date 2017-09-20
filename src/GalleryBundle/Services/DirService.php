@@ -28,15 +28,14 @@ class DirService extends AbstractService
     }
 
     /**
-     * @param $id
+     * @param Directories $dir
      * @return string
      */
-    public function deleteDir($id): string
+    public function deleteDir(Directories $dir): string
     {
-        $dir = $this->em->find(Directories::class, $id);
 
         if (!$dir) {
-            return 'The image with this id does not exist';
+            return 'The directory with this id does not exist';
         }
 
         try {
@@ -49,13 +48,13 @@ class DirService extends AbstractService
     }
 
     /**
-     * @param $id
+     * @param Directories $dir
      * @param $name
      * @return string
      */
-    public function renameDir($id, $name): string
+    public function renameDir(Directories $dir, $name): string
     {
-        $dir = $this->em->find(Directories::class, $id);
+
         if (!$dir) {
             return 'The image with this id does not exist';
         }

@@ -2,6 +2,7 @@
 
 namespace GalleryBundle\Controller;
 
+use GalleryBundle\Entity\Directories;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,8 +20,8 @@ class DirectoryController extends Controller
      */
     public function __construct(Container $container)
     {
-        $this->imageService=$container->get('gallery.image_service');
-        $this->dirService=$container->get('gallery.dir_service');
+        $this->imageService = $container->get('gallery.image_service');
+        $this->dirService = $container->get('gallery.dir_service');
     }
 
     /**
@@ -43,12 +44,12 @@ class DirectoryController extends Controller
     }
 
     /**
-     * @param $id
+     * @param Directories $dir
      * @return Response
      */
-    public function delete($id): Response
+    public function delete(Directories $dir): Response
     {
-        $result = $this->dirService->deleteDir($id);
+        $result = $this->dirService->deleteDir($dir);
 
         if ($result) {
             return new Response($result, 500);
@@ -58,13 +59,13 @@ class DirectoryController extends Controller
 
     /**
      * @param Request $request
-     * @param $id
+     * @param Directories $dir
      * @return Response
      */
-    public function edit(Request $request, $id): Response
+    public function edit(Request $request, Directories $dir): Response
     {
         $newName = $request->getContent();
-        $result = $this->dirService->renameDir($id, $newName);
+        $result = $this->dirService->renameDir($dir, $newName);
 
         if ($result) {
             return new Response($result, 500);

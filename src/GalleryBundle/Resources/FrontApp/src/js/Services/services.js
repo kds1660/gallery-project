@@ -217,4 +217,3 @@ angular.module('galleryServices', [])
             }
         }
     ]);
-

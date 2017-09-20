@@ -2,6 +2,7 @@
 
 namespace GalleryBundle\Controller;
 
+use GalleryBundle\Entity\Images;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,12 +25,12 @@ class ImageController extends Controller
     }
 
     /**
-     * @param $id
+     * @param Images $image
      * @return Response
      */
-    public function delete($id): Response
+    public function delete(Images $image): Response
     {
-        $result = $this->imageService->deleteImage($id);
+        $result = $this->imageService->deleteImage($image);
 
         if ($result) {
             return new Response($result, 500);
@@ -39,13 +40,13 @@ class ImageController extends Controller
 
     /**
      * @param Request $request
-     * @param $id
+     * @param Images $image
      * @return Response
      */
-    public function edit(Request $request, $id): Response
+    public function edit(Request $request, Images $image): Response
     {
         $newName = $request->getContent();
-        $result = $this->imageService->renameImage($id, $newName);
+        $result = $this->imageService->renameImage($image, $newName);
 
         if ($result) {
             return new Response($result, 500);
