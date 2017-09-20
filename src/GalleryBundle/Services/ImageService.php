@@ -43,30 +43,32 @@ class ImageService extends AbstractService
         if (file_exists($this->galleryDir . $image->getPath())) {
             unlink($this->galleryDir . $image->getPath());
         }
-
-
         return '';
     }
 
     /**
-     * @param $id
+     * @param $image
      * @param $name
-     * @return bool|string
+     * @return string
      */
     public function renameImage($image, $name): string
     {
         if (!$image) {
             return 'The image with this id does not exist';
         }
+        $image->setName($name);
+        $errors = $this->validator->validate($image);
+
+        if (count($errors) > 0) {
+            return (string)$errors;
+        }
 
         try {
-            $image->setName($name);
             $this->em->flush();
         } catch (DBALException $e) {
             return $e->getMessage();
         }
-
-        return false;
+        return '';
     }
 
     /**
@@ -83,8 +85,19 @@ class ImageService extends AbstractService
             $parentDir = $this->em->find(Directories::class, $pid);
         }
 
+        $img = new Images();
         $prefix = md5(uniqid('', false));
         $fileName = $prefix . '.' . $file->guessExtension();
+
+        $img->setName($name);
+        $img->setPid($parentDir);
+        $img->setPath($file);
+        $errors = $this->validator->validate($img);
+
+        if (count($errors) > 0) {
+            return (string)$errors;
+        }
+
         $file->move(
             $this->galleryDir,
             $fileName
@@ -102,9 +115,6 @@ class ImageService extends AbstractService
         $image->writeImage($this->galleryDir . 'thumb_' . $fileName);
 
         try {
-            $img = new Images();
-            $img->setName($name);
-            $img->setPid($parentDir);
             $img->setPath($fileName);
             $this->em->persist($img);
             $this->em->flush();

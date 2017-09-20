@@ -14,7 +14,7 @@ angular.module('galleryRenameController', ['ui.router'])
                             $scope.setAlert(true, response);
                             $state.go('gallery',{id:dirLocator.get()});
                         },
-                        function () {
+                        function (response) {
                             $scope.setAlert(false, response);
                         });
                 }
@@ -25,8 +25,8 @@ angular.module('galleryRenameController', ['ui.router'])
                             $scope.setAlert(true, response);
                             $state.go('gallery',{id:dirLocator.get()});
                         },
-                        function () {
-                            $scope.setAlert(true, response);
+                        function (response) {
+                            $scope.setAlert(false, response);
                         });
                 }
             }

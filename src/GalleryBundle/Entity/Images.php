@@ -16,6 +16,11 @@ class Images
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=31, nullable=false)
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *     max="31",
+     * maxMessage="Max name length=31",
+     * )
      */
     private $name;
 
@@ -23,6 +28,13 @@ class Images
      * @var string
      *
      * @ORM\Column(name="path", type="string", length=61, nullable=false)
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *     max="61",
+     * maxMessage="Max path length=61"
+     * )
+     * @Assert\File(mimeTypes={
+     *     "image/png","image/jpeg","image/gif","image/svg+xml"})
      */
     private $path;
 

@@ -3,6 +3,7 @@
 namespace GalleryBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Directories
@@ -35,6 +36,11 @@ class Directories
     /**
      * @var string
      * @ORM\Column(name="name", type="string", length=31, nullable=false)
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *     max="31",
+     * maxMessage="Max name length=31"
+     * )
      */
     private $name;
 

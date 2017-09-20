@@ -1,10 +1,10 @@
 services:
  gallery.image_service:
         class: GalleryBundle\Services\ImageService
-        arguments: ["@doctrine.orm.entity_manager",'%gallery_directory%','%image_size%']
+        arguments: ["@doctrine.orm.entity_manager",'%gallery_directory%','%image_size%',"@service_container"]
  gallery.dir_service:
         class: GalleryBundle\Services\DirService
-        arguments: ["@doctrine.orm.entity_manager",'%gallery_directory%']
+        arguments: ["@doctrine.orm.entity_manager",'%gallery_directory%','',"@service_container"]
  gallery.templates_controller:
          class: GalleryBundle\Controller\TemplatesController
          arguments: ["@templating"]

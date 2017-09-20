@@ -56,11 +56,16 @@ class DirService extends AbstractService
     {
 
         if (!$dir) {
-            return 'The image with this id does not exist';
+            return 'The directory with this id does not exist';
+        }
+        $dir->setName($name);
+        $errors = $this->validator->validate($dir);
+
+        if (count($errors) > 0) {
+            return (string)$errors;
         }
 
         try {
-            $dir->setName($name);
             $this->em->flush();
         } catch (DBALException $e) {
             return $e->getMessage();
@@ -79,11 +84,15 @@ class DirService extends AbstractService
         if ($pid) {
             $elmDir = $this->em->find(Directories::class, $pid);
         }
+        $dir = new Directories();
+        $dir->setName($name);
+        $dir->setPid($elmDir);
+        $errors = $this->validator->validate($dir);
 
+        if (count($errors) > 0) {
+            return (string)$errors;
+        }
         try {
-            $dir = new Directories();
-            $dir->setName($name);
-            $dir->setPid($elmDir);
             $this->em->persist($dir);
             $this->em->flush();
         } catch (DBALException $e) {
@@ -106,6 +115,6 @@ class DirService extends AbstractService
         if ($dir) {
             return new JsonResponse($normalizer->normalize($dir));
         }
-        return new JsonResponse ('');
+        return new JsonResponse('');
     }
 }

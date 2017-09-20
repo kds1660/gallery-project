@@ -7,3 +7,5 @@ parameters:
         thumb:
             width: 150
             height: 150
+framework:
+    validation: {enable_annotations: true}
