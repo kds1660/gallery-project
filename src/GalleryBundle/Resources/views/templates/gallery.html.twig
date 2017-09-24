@@ -1,17 +1,18 @@
 <div class="container">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <div class="form-inline">
-                <span class="path">
-                    <a ng-click="mainPage()">
-                        <span>RootDir/</span>
-                    </a>
-                </span>
-                <span class="path" ng-repeat="dirs in $root.dirPath track by $index">
-                    <a ui-sref="gallery({id:dirs.id})">
-                        {{ '{{ ' }}dirs.name{{ '}} ' }}<span>/</span>
-                    </a>
-                </span>
+
+            <div id="path">
+                <ul>
+                    <li>
+                        <a ng-click="mainPage()">RootDir</a>
+                    </li>
+
+                        <li ng-repeat="dirs in $root.dirPath track by $index">
+                            <a ui-sref="gallery({id:dirs.id})">{{ '{{ ' }}dirs.name{{ '}} ' }}</a>
+
+
+                </ul>
             </div>
             <a ui-sref="addDir">
                 <button type="button" class="btn btn-success">Add folder</button>
