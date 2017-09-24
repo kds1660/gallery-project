@@ -29,6 +29,10 @@ angular.module('galleryRenameController', ['ui.router'])
                             $scope.setAlert(false, response);
                         });
                 }
-            }
+            };
+            $scope.mainPage = function () {
+                $rootScope.dirPath = [];
+                $state.go('gallery', {id: null});
+            };
         }
     ]);

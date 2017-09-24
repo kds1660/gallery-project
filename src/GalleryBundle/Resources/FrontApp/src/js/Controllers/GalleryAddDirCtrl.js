@@ -3,6 +3,7 @@ angular.module('galleryAddDirController', ['ui.router'])
         function ($scope, $rootScope, galleryService, dirLocator, $stateParams, $state) {
             inputFocus();
             $rootScope.Elm='';
+            console.log($stateParams);
             $scope.submit = function () {
                 var elmName, dirPath;
                 elmName = $($('.elmName').val().trim()).text() || $('.elmName').val().trim();
@@ -16,6 +17,7 @@ angular.module('galleryAddDirController', ['ui.router'])
                     function (response) {
                         $scope.setAlert(false, response);
                     });
-            }
+            };
+
         }
     ]);

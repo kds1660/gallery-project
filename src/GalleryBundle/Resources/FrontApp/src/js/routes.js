@@ -20,7 +20,10 @@ angular.module('galleryRoutes', ['ui.router'])
                 .state('addDir', {
                     url: '/gallery/new',
                     templateUrl: 'templates/renameElement',
-                    controller: 'GalleryAddDirCtrl'
+                    controller: 'GalleryAddDirCtrl',
+                    params: {
+                        type: null
+                    }
                 })
                 .state('addImage', {
                     url: '/gallery/add',

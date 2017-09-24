@@ -22,7 +22,7 @@ class DefaultController
      */
     public function indexAction(): Response
     {
-        return $this->templating->renderResponse('@Gallery/index.html.twig');
+        return $this->templating->renderResponse('GalleryBundle::index.html.twig');
     }
 
     /**

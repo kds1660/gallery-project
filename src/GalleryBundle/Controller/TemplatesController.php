@@ -24,6 +24,6 @@ class TemplatesController
      */
     public function indexAction($tmpl): Response
     {
-        return $this->templating->renderResponse('@Gallery/templates/' . $tmpl . '.html.twig');
+        return $this->templating->renderResponse('GalleryBundle:templates:' . $tmpl . '.html.twig');
     }
 }

@@ -40,5 +40,4 @@ var app = angular.module('myApp', [
                 $rootScope.setAlert(false, response.data);
             }
         );
-
     }]);

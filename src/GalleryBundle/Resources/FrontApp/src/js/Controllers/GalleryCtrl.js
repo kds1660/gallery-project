@@ -6,6 +6,11 @@ angular.module('galleryController', ['ui.router'])
             dirPath = $state.params.id || dirLocator.get();
             dirLocator.init(dirPath);
 
+            //add global cancel
+            $rootScope.cancel = function () {
+                $state.go('gallery',{id: dirLocator.get()});
+            };
+
             galleryService.getDirElements(dirPath).then(
                 function (response) {
                     $scope.gallery = response;
