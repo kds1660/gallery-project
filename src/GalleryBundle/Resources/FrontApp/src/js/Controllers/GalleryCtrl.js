@@ -8,7 +8,7 @@ angular.module('galleryController', ['ui.router'])
 
             //add global cancel
             $rootScope.cancel = function () {
-                $state.go('gallery',{id: dirLocator.get()});
+                $state.go('gallery', {id: dirLocator.get()});
             };
 
             galleryService.getDirElements(dirPath).then(

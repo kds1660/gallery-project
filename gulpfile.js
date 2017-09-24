@@ -19,10 +19,12 @@ gulp.task('vendors-css', function () {
 });
 
 gulp.task('custom-css', function() {
-    gulp.src(['src/GalleryBundle/Resources/FrontApp/src/css/app.css'])
+    gulp.src(['src/GalleryBundle/Resources/FrontApp/src/css/path.css',
+        'src/GalleryBundle/Resources/FrontApp/src/css/app.css'
+        ])
+        .pipe(concat('app.min.css'))
         .pipe(less({compress: true}))
         .pipe(uglifycss())
-        .pipe(rename("app.min.css"))
         .pipe(gulp.dest('web/css/'))
         .pipe(notify("Gulp watch: custom-css task completed."));
 });

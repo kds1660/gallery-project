@@ -1,12 +1,14 @@
 <div>
-        <div class="modal-header">
-            <h3 class="modal-title">Upload image</h3>
-        </div>
-    <div class="modal-body">
-        <input type='text' class='edit name elmName' placeholder='Image name'  ng-model="loadingImage.name">
+    <div class="modal-header">
+        <h3 class="modal-title">Upload image</h3>
     </div>
-    <img id="previewImg" height="200" ng-src="{{ '{{ ' }}loadingImage.image   {{ '}} ' }}" ng-model="loadingImage.image"/>
-    <input class='image' type="file" name="pic[]" accept="image/png,image/jpeg,image/gif,image/svg+xml" fileread="loadingImage.image" onchange="angular.element(this).scope().loadImage(this.files)">
+    <div class="modal-body">
+        <input type='text' class='edit name elmName' placeholder='Image name' ng-model="loadingImage.name">
+    </div>
+    <img id="previewImg" height="200" ng-src="{{ '{{ ' }}loadingImage.image   {{ '}} ' }}"
+         ng-model="loadingImage.image"/>
+    <input class='image' type="file" name="pic[]" accept="image/png,image/jpeg,image/gif,image/svg+xml"
+           fileread="loadingImage.image" onchange="angular.element(this).scope().loadImage(this.files)">
 
     <div class="modal-footer">
         <a class="viewButton btn btn-info" ng-click="saveImage()">Upload</a>
