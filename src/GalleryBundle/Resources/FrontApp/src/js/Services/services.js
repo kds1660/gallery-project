@@ -174,6 +174,7 @@ angular.module('galleryServices', [])
         function ($rootScope, pageNumberElement) {
             return {
                 init: function () {
+                    $('.btn-next').hide();
                     $rootScope.limit = pageNumberElement;
                     $rootScope.page = {
                         imgOffset: 0,
