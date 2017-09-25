@@ -28,6 +28,8 @@ angular.module('galleryServices', [])
                     function (response) {
                         if (response.data.directories.length + response.data.images.length <= pageLocator.getLimit()) {
                             $('.btn-next').hide();
+                        } else {
+                            $('.btn-next').show();
                         }
 
                         if (response.data.directories.length >= pageLocator.getLimit()) {
@@ -35,6 +37,7 @@ angular.module('galleryServices', [])
                             response.data.images = [];
                             imgLength = 0;
                         }
+
                         if (response.data.directories.length < pageLocator.getLimit()) {
                             dirLength = response.data.directories.length;
                             response.data.images = response.data.images.slice(0, pageLocator.getLimit() - dirLength);
@@ -85,7 +88,7 @@ angular.module('galleryServices', [])
                 return deferred.promise;
             },
 
-            renameDir: function (id, name) {//todo in 1 function
+            renameDir: function (id, name) {
                 var deferred = $q.defer();
                 apiReq('directory/' + id, 'PUT', name).then(
                     function (response) {
@@ -125,17 +128,14 @@ angular.module('galleryServices', [])
             },
 
             checkImage: function (files) {
-                if (files.type !== "image/png" &&
-                    files.type !== "image/jpeg" &&
-                    files.type !== "image/gif" &&
-                    files.type !== "image/svg+xml") {
-                    return false;
-                }
-                return true
+                return !(files.type !== "image/png" &&
+                files.type !== "image/jpeg" &&
+                files.type !== "image/gif" &&
+                files.type !== "image/svg+xml");
             }
         };
     }])
-
+    //contain array with dir path objects
     .factory('dirLocator', ['$rootScope', 'apiReq', '$q',
         function ($rootScope, apiReq, $q) {
             return {
@@ -169,7 +169,7 @@ angular.module('galleryServices', [])
             }
         }
     ])
-
+    //contain limit for page from app.js and img/dir offset
     .factory('pageLocator', ['$rootScope', 'pageNumberElement',
         function ($rootScope, pageNumberElement) {
             return {
@@ -179,7 +179,6 @@ angular.module('galleryServices', [])
                         imgOffset: 0,
                         dirOffset: 0
                     };
-                    $('.btn-next').show();
                 },
                 next: function (dirOffset, imgOffset) {
                     $rootScope.page.dirOffset += dirOffset;
@@ -208,7 +207,7 @@ angular.module('galleryServices', [])
                             template: response.data
                         }).result.then(function () {
                             deferred.resolve();
-                        }, function (res) {
+                        }, function () {
                             deferred.reject();
                         });
                     });

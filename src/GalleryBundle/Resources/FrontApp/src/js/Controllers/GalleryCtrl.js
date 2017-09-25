@@ -2,14 +2,11 @@ angular.module('galleryController', ['ui.router'])
     .controller('GalleryCtrl', ['$http', '$scope', '$rootScope', '$state', '$uibModal', '$stateParams', 'modalService', 'galleryService', 'dirLocator', 'pageLocator',
         function ($http, $scope, $rootScope, $state, $uibModal, $stateParams, modalService, galleryService, dirLocator, pageLocator) {
             var dirPath;
+            //zero paginator
             pageLocator.init();
             dirPath = $state.params.id || dirLocator.get();
+            //init directory path array (get from backend)
             dirLocator.init(dirPath);
-
-            //add global cancel
-            $rootScope.cancel = function () {
-                $state.go('gallery', {id: dirLocator.get()});
-            };
 
             galleryService.getDirElements(dirPath).then(
                 function (response) {
@@ -21,6 +18,7 @@ angular.module('galleryController', ['ui.router'])
                 });
 
             $scope.deleteElement = function ($index) {
+                //show modal window for confirm action
                 modalService.confirm().then(function () {
                     galleryService.deleteElement($scope.gallery.images[$index].id).then(
                         function (response) {
@@ -41,6 +39,7 @@ angular.module('galleryController', ['ui.router'])
             };
 
             $scope.deleteDir = function ($index) {
+                //show modal window for confirm action
                 modalService.confirm().then(function () {
                     galleryService.deleteDir($scope.gallery.directories[$index].id).then(
                         function (response) {
@@ -65,34 +64,15 @@ angular.module('galleryController', ['ui.router'])
                     name: $scope.gallery.directories[$index].name,
                     id: $scope.gallery.directories[$index].id
                 });
-                pageLocator.init();
                 $state.go('gallery', {id: $scope.gallery.directories[$index].id});
-
-                galleryService.getDirElements($scope.gallery.directories[$index].id).then(
-                    function (response) {
-                        $scope.gallery = response;
-                    },
-                    function (response) {
-                        $scope.setAlert(false, response);
-                        $scope.gallery = [];
-                    });
             };
 
             $scope.upDir = function () {
                 var dirPath;
+                //remove directory from dirPath array
                 dirLocator.remove();
-                pageLocator.init();
                 dirPath = dirLocator.get();
                 $state.go('gallery', {id: dirPath});
-
-                galleryService.getDirElements(dirPath).then(
-                    function (response) {
-                        $scope.gallery = response;
-                    },
-                    function (response) {
-                        $scope.setAlert(false, response);
-                        $scope.gallery = [];
-                    });
             };
 
             $scope.showImage = function ($index) {
@@ -110,10 +90,11 @@ angular.module('galleryController', ['ui.router'])
 
             $scope.next = function () {
                 dirPath = dirLocator.get();
-
                 galleryService.getDirElements(dirPath).then(
                     function (response) {
                         $scope.gallery = response;
+                        //show home button
+                        $('.btn-home').show();
                     },
                     function (response) {
                         $scope.setAlert(false, response);
@@ -122,6 +103,8 @@ angular.module('galleryController', ['ui.router'])
             };
 
             $scope.home = function () {
+                //if back home - hide home button
+                $('.btn-home').hide();
                 dirPath = dirLocator.get();
                 pageLocator.init();
 
@@ -134,5 +117,10 @@ angular.module('galleryController', ['ui.router'])
                         $scope.gallery = [];
                     });
             };
+
+            //if first page hide home button
+            if (!pageLocator.get().imgOffset && !pageLocator.get().dirOffset) {
+                $('.btn-home').hide();
+            }
         }
     ]);

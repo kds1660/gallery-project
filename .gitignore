@@ -6,4 +6,5 @@
 /node_modules
 /web/js
 /web/css
+**/Entity/*~
 /.idea
