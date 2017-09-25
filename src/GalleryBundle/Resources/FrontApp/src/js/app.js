@@ -12,7 +12,7 @@ var app = angular.module('myApp', [
 ])
     .constant('pageNumberElement', 18)
 
-    .run(['$rootScope', '$timeout', '$http', function ($rootScope, $timeout, $http) {
+    .run(['$rootScope', '$timeout', '$http', '$state', function ($rootScope, $timeout, $http, $state) {
         $rootScope.setAlert = function (trueFalse, text) {
             $rootScope.alert = {};
             $('.alert').show();
@@ -40,4 +40,9 @@ var app = angular.module('myApp', [
                 $rootScope.setAlert(false, response.data);
             }
         );
+
+        $rootScope.mainPage = function () {
+            $rootScope.dirPath = [];
+            $state.go('gallery', {id: null});
+        }
     }]);

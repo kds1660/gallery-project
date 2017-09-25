@@ -134,10 +134,5 @@ angular.module('galleryController', ['ui.router'])
                         $scope.gallery = [];
                     });
             };
-
-            $scope.mainPage = function () {
-                $rootScope.dirPath = [];
-                $state.go('gallery', {id: null});
-            }
         }
     ]);
