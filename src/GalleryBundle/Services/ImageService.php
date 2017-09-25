@@ -56,7 +56,10 @@ class ImageService extends AbstractService
         if (!$image) {
             return 'The image with this id does not exist';
         }
+
         $image->setName($name);
+        $path = $image->getPath();
+        $image->setPath($this->galleryDir . $path);
         $errors = $this->validator->validate($image);
 
         if (count($errors) > 0) {
@@ -64,6 +67,7 @@ class ImageService extends AbstractService
         }
 
         try {
+            $image->setPath($path);
             $this->em->flush();
         } catch (DBALException $e) {
             return $e->getMessage();
