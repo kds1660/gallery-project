@@ -41,13 +41,16 @@ class ElementsQueries extends EntityRepository
         $this->_em->getConnection()->beginTransaction();
 
         try {
-            $sql = "update `directories` 
-set directories.path = REPLACE (directories.path,:old,:new)
-WHERE directories.path LIKE :find";
-            $query = $this->_em->getConnection()->prepare($sql);
-            $query->bindValue('old', $name . '&' . $id);
-            $query->bindValue('find', '%' . $name . '&' . $id . '%');
-            $query->bindValue('new', $newName . '&' . $id);
+            $query = $this->createQueryBuilder('e')
+                ->update(Directories::class, 'e')
+                ->set('e.path', 'REPLACE (e.path,:old,:new)')
+                ->where('e.path LIKE :find')
+                ->setParameters(array(
+                    'old' => $name . '&' . $id,
+                    'find' => '%' . $name . '&' . $id . '%',
+                    'new' => $newName . '&' . $id
+                ))
+                ->getQuery();
             $query->execute();
 
             $query = $this->createQueryBuilder('e')

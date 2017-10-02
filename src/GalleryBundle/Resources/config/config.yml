@@ -9,3 +9,9 @@ parameters:
             height: 150
 framework:
     validation: {enable_annotations: true}
+
+doctrine:
+    orm:
+        dql:
+            string_functions:
+                replace: GalleryBundle\DQL\Replace
