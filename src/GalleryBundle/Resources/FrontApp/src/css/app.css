@@ -42,6 +42,8 @@
 .alert {
   position: fixed;
   top: 0;
+  right: 0;
+  left: auto;
   width: 30%;
   height:50px;
   z-index: 1000;
@@ -72,5 +74,9 @@ gallery-element {
   cursor:nesw-resize;
 }
 .imageButtons {
+  cursor: pointer;
+}
+
+.heading {
   cursor: pointer;
 }

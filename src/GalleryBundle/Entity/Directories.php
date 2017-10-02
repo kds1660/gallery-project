@@ -13,6 +13,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Directories
 {
+    const P_SEPAR = '/';
+    const E_SEPAR = '&';
     /**
      * @var integer
      *
@@ -32,6 +34,16 @@ class Directories
      */
     private $pid;
 
+    /**
+     * @var string
+     * @ORM\Column(name="path", type="string", length=255, nullable=false)
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *     max="255",
+     * maxMessage="Max path length=255"
+     * )
+     */
+    private $path;
 
     /**
      * @var string
@@ -101,5 +113,25 @@ class Directories
     public function getPid()
     {
         return $this->pid;
+    }
+
+    /**
+     * @return string
+     * Get Path
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * Set $path
+     * @return $this
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
     }
 }

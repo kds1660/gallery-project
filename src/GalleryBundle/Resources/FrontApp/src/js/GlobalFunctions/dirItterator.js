@@ -1,12 +1,13 @@
 function dirItterator(obj, dirArr) {
-    if (obj.constructor == Object) {
-        dirArr[dirArr.length] = {
-            id: obj.id,
-            name: obj.name
-        };
+  var temp;
+   for (var i=0;i<obj.length;i++) {
+     if (obj[i].length) {
+       temp=obj[i].split('&')
+         dirArr[dirArr.length] = {
+             id: temp[1],
+             name: temp[0]
+         };
+     }
 
-        if (obj.pid && obj.pid.constructor === Object) {
-            dirItterator(obj.pid, dirArr)
-        }
-    }
+   }
 }

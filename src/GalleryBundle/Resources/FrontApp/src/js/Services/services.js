@@ -146,7 +146,6 @@ angular.module('galleryServices', [])
                         function (response) {
                             $rootScope.dirPath = [];
                             dirItterator(response.data, $rootScope.dirPath);
-                            $rootScope.dirPath.reverse();
                             deferred.resolve(response.data);
                         },
                         function (response) {

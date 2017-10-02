@@ -3,14 +3,7 @@
 namespace GalleryBundle\Services;
 
 use Doctrine\DBAL\DBALException;
-use Doctrine\DBAL\Schema\AbstractAsset;
 use GalleryBundle\Entity\Directories;
-use GalleryBundle\Entity\Images;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Doctrine\ORM\ORMException;
-use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
-use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DirService extends AbstractService
@@ -58,19 +51,15 @@ class DirService extends AbstractService
         if (!$dir) {
             return 'The directory with this id does not exist';
         }
-        $dir->setName($name);
         $errors = $this->validator->validate($dir);
 
         if (count($errors) > 0) {
             return (string)$errors;
         }
 
-        try {
-            $this->em->flush();
-        } catch (DBALException $e) {
-            return $e->getMessage();
-        }
-        return '';
+        $repository = $this->em->getRepository(Directories::class);
+
+        return $repository->updatePathDirs($dir->getId(), $dir->getName(), $name);
     }
 
     /**
@@ -83,10 +72,17 @@ class DirService extends AbstractService
         $elmDir = null;
         if ($pid) {
             $elmDir = $this->em->find(Directories::class, $pid);
+            $dirPath = $elmDir->getPath() . Directories::P_SEPAR .
+                $elmDir->getName() . Directories::E_SEPAR . $elmDir->getId();
+        }
+
+        if (!isset($dirPath)) {
+            $dirPath = ' ';
         }
         $dir = new Directories();
         $dir->setName($name);
         $dir->setPid($elmDir);
+        $dir->setPath($dirPath);
         $errors = $this->validator->validate($dir);
 
         if (count($errors) > 0) {
@@ -95,6 +91,7 @@ class DirService extends AbstractService
         try {
             $this->em->persist($dir);
             $this->em->flush();
+            //mayby set self dir in path
         } catch (DBALException $e) {
             return $e->getMessage();
         }
@@ -108,12 +105,11 @@ class DirService extends AbstractService
     public function getDirParents($id): JsonResponse
     {
         $dir = $this->em->find(Directories::class, $id);
-        $encoders = new JsonEncoder();
-        $normalizer = new GetSetMethodNormalizer();
-        $serializer = new Serializer(array($normalizer), array($encoders));
+        $path = trim($dir->getPath()) . Directories::P_SEPAR . $dir->getName() . Directories::E_SEPAR . $dir->getId();
+        $path = explode(Directories::P_SEPAR, $path);
 
         if ($dir) {
-            return new JsonResponse($normalizer->normalize($dir));
+            return new JsonResponse($path);
         }
         return new JsonResponse('');
     }
