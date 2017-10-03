@@ -11,7 +11,7 @@ angular.module('galleryAddDirController', ['ui.router'])
                 galleryService.addDir({name: elmName, pid: dirPath}).then(
                     function (response) {
                         $scope.setAlert(true, response);
-                        $state.go('gallery', {id: dirPath});
+                        $state.go('gallery', {id: dirPath},{reload : true});
                     },
                     function (response) {
                         $scope.setAlert(false, response);

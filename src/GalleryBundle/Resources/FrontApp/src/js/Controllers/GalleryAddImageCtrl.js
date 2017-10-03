@@ -18,7 +18,7 @@ angular.module('galleryAddImgController', ['ui.router'])
                     galleryService.addImage(form).then(
                         function (response) {
                             $scope.setAlert(true, response);
-                            $state.go('gallery',{id: $scope.loadingImage.pid});
+                            $state.go('gallery',{id: $scope.loadingImage.pid},{reload : true});
                         },
                         function (response) {
                             $scope.setAlert(false, response);

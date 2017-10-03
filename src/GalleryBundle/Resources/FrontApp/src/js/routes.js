@@ -9,24 +9,24 @@ angular.module('galleryRoutes', ['ui.router'])
                     templateUrl: 'templates/gallery',
                     controller: 'GalleryCtrl'
                 })
-                .state('editElement', {
-                    url: '/gallery/edit/:id',
+                .state('gallery.editElement', {
+                    url: '/edit/:id',
                     templateUrl: 'templates/renameElement',
                     controller: 'GalleryRenameCtrl',
                     params: {
                         type: null
                     }
                 })
-                .state('addDir', {
-                    url: '/gallery/new',
+                .state('gallery.addDir', {
+                    url: '/new/',
                     templateUrl: 'templates/renameElement',
                     controller: 'GalleryAddDirCtrl',
                     params: {
                         type: null
                     }
                 })
-                .state('addImage', {
-                    url: '/gallery/add',
+                .state('gallery.addImage', {
+                    url: '/add/',
                     templateUrl: 'templates/newImage',
                     controller: 'GalleryAddImgCtrl'
                 });

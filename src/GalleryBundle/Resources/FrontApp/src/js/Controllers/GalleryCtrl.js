@@ -35,7 +35,7 @@ angular.module('galleryController', ['ui.router'])
 
             $scope.editImage = function ($index) {
                 $rootScope.Elm = $scope.gallery.images[$index];
-                $state.go('editElement', {id: $rootScope.Elm.id, type: 'img'});
+                $state.go('gallery.editElement', {id: dirLocator.get(), type: 'img'});
             };
 
             $scope.deleteDir = function ($index) {
@@ -56,7 +56,7 @@ angular.module('galleryController', ['ui.router'])
 
             $scope.editDir = function ($index) {
                 $rootScope.Elm = $scope.gallery.directories[$index];
-                $state.go('editElement', {id: $rootScope.Elm.id, type: 'dir'});
+                $state.go('gallery.editElement', {id: dirLocator.get(), type: 'dir'});
             };
 
             $scope.openDir = function ($index) {

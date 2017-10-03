@@ -141,6 +141,7 @@ angular.module('galleryServices', [])
             return {
                 init: function (id) {
                     var deferred = $q.defer();
+
                     if (!$rootScope.dirPath) $rootScope.dirPath = [];
                     apiReq('getPath', 'GET', '', {'id': id}).then(
                         function (response) {

@@ -5,13 +5,14 @@ angular.module('galleryRenameController', ['ui.router'])
 
             $scope.submit = function () {
                 var elmName;
-                $rootScope.Elm = '';
+
                 elmName = $('.elmName').val().trim();
 
                 if ($stateParams.type === 'dir') {
-                    galleryService.renameDir($stateParams.id,elmName).then(
+                    galleryService.renameDir($rootScope.Elm.id,elmName).then(
                         function (response) {
                             $scope.setAlert(true, response);
+                            $scope.home();
                             $state.go('gallery',{id:dirLocator.get()});
                         },
                         function (response) {
@@ -20,9 +21,10 @@ angular.module('galleryRenameController', ['ui.router'])
                 }
 
                 if ($stateParams.type === 'img') {
-                    galleryService.renameImage($stateParams.id,elmName).then(
+                    galleryService.renameImage($rootScope.Elm.id,elmName).then(
                         function (response) {
                             $scope.setAlert(true, response);
+                            $scope.home();
                             $state.go('gallery',{id:dirLocator.get()});
                         },
                         function (response) {
