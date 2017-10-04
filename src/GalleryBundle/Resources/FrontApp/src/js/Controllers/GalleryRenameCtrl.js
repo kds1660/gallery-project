@@ -1,7 +1,7 @@
 angular.module('galleryRenameController', ['ui.router'])
     .controller('GalleryRenameCtrl', ['$scope', '$rootScope','galleryService', 'dirLocator', '$stateParams', '$state',
         function ($scope, $rootScope, galleryService,dirLocator, $stateParams, $state) {
-            inputFocus();
+            inputActions();
 
             $scope.submit = function () {
                 var elmName;

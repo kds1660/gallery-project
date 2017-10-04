@@ -1,7 +1,7 @@
 angular.module('galleryAddDirController', ['ui.router'])
     .controller('GalleryAddDirCtrl', ['$scope', '$rootScope', 'galleryService', 'dirLocator', '$stateParams', '$state',
         function ($scope, $rootScope, galleryService, dirLocator, $stateParams, $state) {
-            inputFocus();
+            inputActions();
             $rootScope.Elm='';
             $scope.submit = function () {
                 var elmName, dirPath;

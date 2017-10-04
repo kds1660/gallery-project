@@ -3,7 +3,7 @@ angular.module('galleryAddImgController', ['ui.router'])
         function (galleryService, $scope, $rootScope, dirLocator, $stateParams, $state) {
             var form, img;
             $scope.loadingImage = {};
-            inputFocus();
+            inputActions();
 
             $scope.saveImage = function () {
                 img = ($(".image"))[0];
