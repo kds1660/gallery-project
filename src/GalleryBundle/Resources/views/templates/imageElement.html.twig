@@ -2,8 +2,7 @@
     {{ '{{ ' }}images.name{{ '}} ' }} {#Ugly decision for angular variables#}
     <img class="img-responsive" ng-src="{{ '{{ ' }}$root.mainDir+'thumb_'+images.path{{ '}} ' }}"
          ng-click="showImage($index)"/>
-
-    <button type="button" class="btn btn-warning imageButtons" ng-click="editImage($index)">Edit</button>
-
-    <button type="button" class="btn btn-danger imageButtons" ng-click="deleteElement($index)">Delete</button>
+    <button type="button" class="fa fa-cut btn btn-info imageButtons" ng-click="cutImage($index,$event)"></button>
+    <button type="button" class="fa fa-edit btn btn-warning imageButtons" ng-click="editImage($index)"></button>
+    <button type="button" class="fa fa-remove btn btn-danger imageButtons" ng-click="deleteElement($index)"></button>
 </div>

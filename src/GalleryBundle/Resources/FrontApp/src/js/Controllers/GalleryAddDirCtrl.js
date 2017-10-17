@@ -1,8 +1,8 @@
 angular.module('galleryAddDirController', ['ui.router'])
     .controller('GalleryAddDirCtrl', ['$scope', '$rootScope', 'galleryService', 'dirLocator', '$stateParams', '$state',
         function ($scope, $rootScope, galleryService, dirLocator, $stateParams, $state) {
-            inputActions();
-            $rootScope.Elm='';
+            galleryService.inputFieldPrepare();
+            $rootScope.Elm = '';
             $scope.submit = function () {
                 var elmName, dirPath;
                 elmName = $($('.elmName').val().trim()).text() || $('.elmName').val().trim();
@@ -11,12 +11,11 @@ angular.module('galleryAddDirController', ['ui.router'])
                 galleryService.addDir({name: elmName, pid: dirPath}).then(
                     function (response) {
                         $scope.setAlert(true, response);
-                        $state.go('gallery', {id: dirPath},{reload : true});
+                        $state.go('gallery', {id: dirPath}, {reload: true});
                     },
                     function (response) {
                         $scope.setAlert(false, response);
                     });
             };
-
         }
     ]);

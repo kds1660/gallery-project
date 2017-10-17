@@ -31,6 +31,13 @@
   top: -40px;
 }
 
+.thumb .elemButtons {
+  position: relative;
+  z-index: 10;
+  bottom: 0px;
+  right: 0px;
+}
+
 .col-md-2, .col-sm-4, .col-xs-6 {
   max-height: 180px;
 }
@@ -80,3 +87,13 @@ gallery-element {
 .heading {
   cursor: pointer;
 }
+
+a i {
+  right: 1%;
+  position: absolute;
+}
+
+.panel-heading {
+  position: relative;
+}
+

@@ -56,7 +56,6 @@ class DirService extends AbstractService
         if (count($errors) > 0) {
             return (string)$errors;
         }
-
         $repository = $this->em->getRepository(Directories::class);
 
         return $repository->updatePathDirs($dir->getId(), $dir->getName(), $name);
@@ -70,6 +69,7 @@ class DirService extends AbstractService
     public function addDir($name, $pid): string
     {
         $elmDir = null;
+
         if ($pid) {
             $elmDir = $this->em->find(Directories::class, $pid);
             $dirPath = $elmDir->getPath() . Directories::P_SEPAR .
@@ -88,6 +88,7 @@ class DirService extends AbstractService
         if (count($errors) > 0) {
             return (string)$errors;
         }
+
         try {
             $this->em->persist($dir);
             $this->em->flush();

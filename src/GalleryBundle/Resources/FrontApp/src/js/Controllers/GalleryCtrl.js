@@ -118,6 +118,26 @@ angular.module('galleryController', ['ui.router'])
                     });
             };
 
+            $scope.cutImage = function (index, event) {
+                $rootScope.cutImg = $scope.gallery.images[index];
+                $('.thumb').animate({'opacity': 1});
+                $(event.target).parent().animate({'opacity': 0.5});
+
+            };
+
+            $scope.pasteImg = function () {
+                galleryService.pasteImage($rootScope.cutImg.id, $state.params.id).then(
+                    function (response) {
+                        $('.fa-paste').hide();
+                        $scope.setAlert(true, response);
+                        $rootScope.cutImg = '';
+                        $scope.home();
+                    },
+                    function (response) {
+                        $scope.setAlert(false, response);
+                    });
+            };
+
             //if first page hide home button
             if (!pageLocator.get().imgOffset && !pageLocator.get().dirOffset) {
                 $('.btn-home').hide();

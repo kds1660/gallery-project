@@ -15,13 +15,19 @@
                 </ul>
             </div>
             <a ui-sref="gallery.addDir">
-                <button type="button" class="btn btn-success">Add folder</button>
+                <button type="button" class="fa fa-plus-circle btn btn-success">Add folder</button>
             </a>
             <a ui-sref="gallery.addImage">
-                <button type="button" class="btn btn-success">Upload Image</button>
+                <button type="button" class="fa fa-upload btn btn-success">Upload Image</button>
             </a>
-            <button ng-if="$root.dirPath.length" type="button" class="btn btn-success" ng-click="upDir($index)">Up
+            <button ng-if="$root.dirPath.length" type="button" class="fa fa-level-up btn btn-success" ng-click="upDir($index)">Up
             </button>
+            <a ng-if="$root.cutImg" ng-click="pasteImg()">
+               <i class="btn btn-success fa fa-paste"></i>
+            </a>
+            <a ng-if="$root.cutDir" ng-click="pasteDir()">
+                <i class="btn btn-success fa fa-paste"></i>
+            </a>
             <div ui-view></div>
         </div>
         <div class="panel-body">
@@ -34,8 +40,8 @@
         </div>
         <div class="panel-footer">
             <div>
-                <button type="button" class="btn btn-success btn-home" ng-click="home()">Home</button>
-                <button type="button" class="btn btn-success btn-next" ng-click="next()">Next</button>
+                <button type="button" class="fa fa-home btn btn-success btn-home" ng-click="home()">Home</button>
+                <button type="button" class="fa fa-toggle-right btn btn-success btn-next" ng-click="next()">Next</button>
             </div>
         </div>
     </div>

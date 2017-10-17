@@ -15,3 +15,17 @@ doctrine:
         dql:
             string_functions:
                 replace: GalleryBundle\DQL\Replace
+
+assetic:
+    debug: "%kernel.debug%"
+    use_controller: false
+    assets:
+      font-awesome-ttf:
+        inputs: '%kernel.project_dir%/vendor/bower_components/font-awesome/fonts/fontawesome-webfont.ttf'
+        output: 'fonts/fontawesome-webfont.ttf'
+      font-awesome-woff:
+        inputs: '%kernel.project_dir%/vendor/bower_components/font-awesome/fonts/fontawesome-webfont.woff'
+        output: 'fonts/fontawesome-webfont.woff'
+      font-awesome-woff2:
+        inputs: '%kernel.project_dir%/vendor/bower_components/font-awesome/fonts/fontawesome-webfont.woff2'
+        output: 'fonts/fontawesome-webfont.woff2'

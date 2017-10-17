@@ -71,4 +71,21 @@ class ImageController extends Controller
         }
         return new Response('Image created', 200);
     }
+
+    /**
+     * @param Images $cutImage
+     * @param Request $request
+     * @return Response
+     */
+    public function updateImage(Images $cutImage,Request $request): Response
+    {
+        $pasteId = $request->query->get('pasteId');
+
+        $result = $this->imageService->pasteImage($cutImage, $pasteId);
+
+        if ($result) {
+            return new Response($result, 500);
+        }
+        return new Response('Image pasted', 200);
+    }
 }

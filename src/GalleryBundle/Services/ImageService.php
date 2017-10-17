@@ -127,4 +127,30 @@ class ImageService extends AbstractService
         }
         return '';
     }
+
+    /**
+     * @param $cutImage
+     * @param $pasteId
+     * @return string
+     */
+    public function pasteImage($cutImage, $pasteId): string
+    {
+        $parentDir = null;
+
+        if (!$cutImage) {
+            return 'The image with this id does not exist';
+        }
+
+        if ($pasteId) {
+            $parentDir = $this->em->find(Directories::class, $pasteId);
+        }
+
+        try {
+            $cutImage->setPid($parentDir);
+            $this->em->flush();
+        } catch (DBALException $e) {
+            return $e->getMessage();
+        }
+        return '';
+    }
 }

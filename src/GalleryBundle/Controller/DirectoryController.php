@@ -97,6 +97,7 @@ class DirectoryController extends Controller
     public function getPath(Request $request): JsonResponse
     {
         $id = $request->query->get('id');
+
         if ($id) {
             return $this->dirService->getDirParents($id);
         }

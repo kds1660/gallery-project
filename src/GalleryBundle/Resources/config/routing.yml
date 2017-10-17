@@ -30,6 +30,11 @@ add_dir:
      defaults: { _controller: gallery.dir_controller:add }
      methods:  [POST]
 
+paste_dir:
+     path:     /directory/{id}
+     defaults: { _controller: gallery.dir_controller:update }
+     methods:  [PATCH]
+
 del_image:
      path:     /image/{id}
      defaults: { _controller: gallery.image_controller:delete }
@@ -44,6 +49,11 @@ add_image:
      path:     /image
      defaults: { _controller: gallery.image_controller:newImage }
      methods:  [POST]
+
+paste_image:
+     path:     /image/{id}
+     defaults: { _controller: gallery.image_controller:updateImage }
+     methods:  [PATCH]
 
 get_path:
      path:     /getPath

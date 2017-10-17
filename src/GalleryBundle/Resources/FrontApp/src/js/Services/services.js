@@ -132,6 +132,30 @@ angular.module('galleryServices', [])
                 files.type !== "image/jpeg" &&
                 files.type !== "image/gif" &&
                 files.type !== "image/svg+xml");
+            },
+
+            pasteImage: function (cutId, pasteId) {
+                var deferred = $q.defer();
+                apiReq('image/' + cutId, 'PATCH', '', {pasteId: pasteId}).then(
+                    function (response) {
+                        deferred.resolve(response.data);
+                    },
+                    function (response) {
+                        deferred.reject(response.data);
+                    });
+                return deferred.promise;
+            },
+
+            inputFieldPrepare: function () {
+                angular.element(document).ready(function () {
+                    $(".elmName")
+                        .focus()
+                        .keyup(function (event) {
+                            if (event.keyCode === 13) {
+                                $('.btn-ok').trigger('click');
+                            }
+                        });
+                })
             }
         };
     }])
@@ -146,7 +170,16 @@ angular.module('galleryServices', [])
                     apiReq('getPath', 'GET', '', {'id': id}).then(
                         function (response) {
                             $rootScope.dirPath = [];
-                            dirItterator(response.data, $rootScope.dirPath);
+
+                            for (var i = 0; i < response.data.length; i++) {
+
+                                if (response.data[i].length) {
+                                    $rootScope.dirPath.push({
+                                        id: response.data[i].split('&')[1],
+                                        name: response.data[i].split('&')[0]
+                                    });
+                                }
+                            }
                             deferred.resolve(response.data);
                         },
                         function (response) {

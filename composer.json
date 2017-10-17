@@ -51,8 +51,8 @@
         "post-install-cmd": [
             "@symfony-scripts",
             "npm install",
-            "php bin/console assets:install"
-
+            "php bin/console assets:install",
+            "php bin/console assetic:dump"
         ],
         "post-update-cmd": [
             "@symfony-scripts"

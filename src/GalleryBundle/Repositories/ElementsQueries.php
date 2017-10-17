@@ -67,7 +67,5 @@ class ElementsQueries extends EntityRepository
             return $e->getMessage();
         }
         return '';
-
-
     }
 }
